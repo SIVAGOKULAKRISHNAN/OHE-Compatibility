@@ -1,0 +1,201 @@
+{
+  "credit": "OHE CEE-style ribbed insulator with mounting plate",
+  "textures": {
+    "insulator": "ohecompat:block/ohe_power_bridge_insulator",
+    "particle": "ohecompat:block/ohe_power_bridge_insulator"
+  },
+  "elements": [
+    {
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        2,
+        13
+      ],
+      "faces": {
+        "down": {
+          "texture": "#insulator"
+        },
+        "up": {
+          "texture": "#insulator"
+        },
+        "north": {
+          "texture": "#insulator"
+        },
+        "south": {
+          "texture": "#insulator"
+        },
+        "west": {
+          "texture": "#insulator"
+        },
+        "east": {
+          "texture": "#insulator"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        0,
+        6
+      ],
+      "to": [
+        10,
+        16,
+        10
+      ],
+      "faces": {
+        "down": {
+          "texture": "#insulator"
+        },
+        "up": {
+          "texture": "#insulator"
+        },
+        "north": {
+          "texture": "#insulator"
+        },
+        "south": {
+          "texture": "#insulator"
+        },
+        "west": {
+          "texture": "#insulator"
+        },
+        "east": {
+          "texture": "#insulator"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        1,
+        4
+      ],
+      "to": [
+        12,
+        3,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#insulator"
+        },
+        "up": {
+          "texture": "#insulator"
+        },
+        "north": {
+          "texture": "#insulator"
+        },
+        "south": {
+          "texture": "#insulator"
+        },
+        "west": {
+          "texture": "#insulator"
+        },
+        "east": {
+          "texture": "#insulator"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        5,
+        4
+      ],
+      "to": [
+        12,
+        7,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#insulator"
+        },
+        "up": {
+          "texture": "#insulator"
+        },
+        "north": {
+          "texture": "#insulator"
+        },
+        "south": {
+          "texture": "#insulator"
+        },
+        "west": {
+          "texture": "#insulator"
+        },
+        "east": {
+          "texture": "#insulator"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        9,
+        4
+      ],
+      "to": [
+        12,
+        11,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#insulator"
+        },
+        "up": {
+          "texture": "#insulator"
+        },
+        "north": {
+          "texture": "#insulator"
+        },
+        "south": {
+          "texture": "#insulator"
+        },
+        "west": {
+          "texture": "#insulator"
+        },
+        "east": {
+          "texture": "#insulator"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        13,
+        4
+      ],
+      "to": [
+        12,
+        15,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#insulator"
+        },
+        "up": {
+          "texture": "#insulator"
+        },
+        "north": {
+          "texture": "#insulator"
+        },
+        "south": {
+          "texture": "#insulator"
+        },
+        "west": {
+          "texture": "#insulator"
+        },
+        "east": {
+          "texture": "#insulator"
+        }
+      }
+    }
+  ]
+}

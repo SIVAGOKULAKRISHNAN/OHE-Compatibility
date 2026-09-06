@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,handle_down=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_assembly",
+      "y": 0
+    },
+    "facing=north,handle_down=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_assembly",
+      "y": 0
+    },
+    "facing=east,handle_down=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_assembly",
+      "y": 90
+    },
+    "facing=east,handle_down=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_assembly",
+      "y": 90
+    },
+    "facing=south,handle_down=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_assembly",
+      "y": 180
+    },
+    "facing=south,handle_down=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_assembly",
+      "y": 180
+    },
+    "facing=west,handle_down=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_assembly",
+      "y": 270
+    },
+    "facing=west,handle_down=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_assembly",
+      "y": 270
+    }
+  }
+}

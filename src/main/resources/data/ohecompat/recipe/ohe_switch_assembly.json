@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ITI",
+    "CHC",
+    " P "
+  ],
+  "key": {
+    "I": {
+      "item": "pantographsandwires:iron_strip"
+    },
+    "T": {
+      "item": "pantographsandwires:tensioning_device"
+    },
+    "C": {
+      "item": "electroenergetics:connector"
+    },
+    "H": {
+      "item": "electroenergetics:high_voltage_switch"
+    },
+    "P": {
+      "item": "electroenergetics:concrete_pole"
+    }
+  },
+  "result": {
+    "id": "ohecompat:ohe_switch_assembly",
+    "count": 1
+  }
+}

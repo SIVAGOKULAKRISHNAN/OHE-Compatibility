@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ITI",
+    "NBN",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "pantographsandwires:iron_strip"
+    },
+    "T": {
+      "item": "pantographsandwires:tensioning_device"
+    },
+    "N": {
+      "item": "electroenergetics:glass_insulator_segment"
+    },
+    "B": {
+      "item": "pantographsandwires:power_line_bracket"
+    }
+  },
+  "result": {
+    "id": "ohecompat:c4_cantilever_short_neutral",
+    "count": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "ohecompat:block/compact_ohe_substation",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "ohecompat:block/compact_ohe_substation",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "ohecompat:block/compact_ohe_substation",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ohecompat:block/compact_ohe_substation",
+      "y": 270
+    }
+  }
+}

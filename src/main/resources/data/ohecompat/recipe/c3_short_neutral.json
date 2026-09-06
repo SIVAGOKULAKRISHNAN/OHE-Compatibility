@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " N ",
+    "ITI",
+    " N "
+  ],
+  "key": {
+    "N": {
+      "item": "electroenergetics:glass_insulator_segment"
+    },
+    "I": {
+      "item": "pantographsandwires:insulator_green"
+    },
+    "T": {
+      "item": "pantographsandwires:tensioning_device"
+    }
+  },
+  "result": {
+    "id": "ohecompat:c3_short_neutral",
+    "count": 1
+  }
+}

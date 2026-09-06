@@ -1,0 +1,118 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.107'
+}
+
+group = project.mod_group
+version = project.mod_version
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(project.java_version as int)
+
+def profiles = [
+    create_6_0: [version: '6.0.10-280', range: '[6.0.0,6.1.0)']
+]
+def profileName = project.findProperty('create_profile') ?: 'create_6_0'
+if (!profiles.containsKey(profileName)) throw new GradleException("Unknown create_profile: ${profileName}")
+def createProfile = profiles[profileName]
+ext.createRuntimeVersionRange = createProfile.range
+
+neoForge {
+    version = project.neo_version
+    runs {
+        client {
+            client()
+            gameDirectory = project.file('runs/client')
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+        server {
+            server()
+            gameDirectory = project.file('runs/server')
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+    }
+    mods {
+        "${project.mod_id}" { sourceSet sourceSets.main }
+    }
+}
+
+repositories {
+    maven { url = uri("https://maven.createmod.net") }
+    maven { url = uri("https://maven.ithundxr.dev/snapshots") }
+    maven { url = uri("https://maven.neoforged.net/releases") }
+    maven { url = uri("https://cursemaven.com") }
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.simibubi.create:create-${minecraft_version}:${createProfile.version}:slim") { transitive = false }
+    implementation("net.createmod.ponder:ponder-neoforge:1.0.82+mc${minecraft_version}")
+    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:1.0.6")
+    runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:1.0.6")
+    implementation("com.tterrag.registrate:Registrate:MC1.21-1.3.0+67")
+
+    // P&W runtime dependencies (NeoForge 1.21.1).
+    implementation("curse.maven:dragonlib-946163:8176502")
+    implementation("curse.maven:geckolib-388172:7707149")
+
+    compileOnly files(
+        "libs/electroenergetics-1.21.1-1.1.1.jar",
+        "libs/pantographsandwires-neoforge-1.21.1-beta-0.2.3-C6.jar"
+    )
+    runtimeOnly files(
+        "libs/electroenergetics-1.21.1-1.1.1.jar",
+        "libs/pantographsandwires-neoforge-1.21.1-beta-0.2.3-C6.jar"
+    )
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+
+tasks.register('printCreateProfile') {
+    doLast {
+        println("Create profile: ${profileName}")
+        println("Create Maven version: ${createProfile.version}")
+        println("Runtime dependency range: ${createProfile.range}")
+    }
+}
+
+tasks.register('checkCreateProfile') {
+    doLast {
+        if (profileName != 'create_6_0') {
+            throw new GradleException("Unsupported Create profile for Minecraft 1.21.1: ${profileName}")
+        }
+        println("Create profile ${profileName}: ${createProfile.version}")
+    }
+}
+
+tasks.named('processResources') {
+    filesMatching('META-INF/neoforge.mods.toml') {
+filter { line ->
+            line.replace('versionRange="[6.0.0,7.0.0)"', 'versionRange="' + createProfile.range + '"')
+        }
+    }
+}
+
+tasks.named('build') { dependsOn tasks.named('checkCreateProfile') }
+
+tasks.register('checkJava21') {
+    doLast {
+        def v = JavaVersion.current()
+        if (v != JavaVersion.VERSION_21) {
+            throw new GradleException("This Minecraft 1.21.1 project requires Java 21. Found: " + v)
+        }
+        println("Java 21 check: PASS")
+    }
+}
+tasks.named('build') { dependsOn tasks.named('checkJava21') }
+
+tasks.named('processResources') {
+    doLast {
+        def toml = file("$buildDir/resources/main/META-INF/neoforge.mods.toml")
+        if (toml.exists()) {
+            def text = toml.getText('UTF-8')
+            text = text.replace('versionRange="[6.0.0,7.0.0)"', 'versionRange="' + createProfile.range + '"')
+            text = text.replace('versionRange="[6.0.0,6.1.0)"', 'versionRange="' + createProfile.range + '"')
+            toml.setText(text, 'UTF-8')
+        }
+    }
+}

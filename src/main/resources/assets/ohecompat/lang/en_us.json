@@ -1,0 +1,11 @@
+{
+  "block.ohecompat.ohe_power_bridge": "OHE Power Bridge",
+  "block.ohecompat.c1_cantilever_neutral": "C1 Cantilever Neutral Section",
+  "block.ohecompat.c2_direct_section": "C2 Direct Neutral Section",
+  "block.ohecompat.c3_short_neutral": "C3 Short Neutral Section",
+  "block.ohecompat.c4_cantilever_short_neutral": "C4 Cantilever Short Neutral Section",
+  "block.ohecompat.compact_ohe_substation": "Compact OHE Substation",
+  "block.ohecompat.ohe_booster": "OHE Booster / Autotransformer",
+  "itemGroup.ohecompat.ohe_compatibility": "CEE + P&W OHE Compatibility",
+  "block.ohecompat.ohe_switch_assembly": "OHE Switch Assembly"
+}

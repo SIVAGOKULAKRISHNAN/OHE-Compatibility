@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TCT",
+    "CVC",
+    "TCT"
+  ],
+  "key": {
+    "T": {
+      "item": "electroenergetics:transformer_core_lamination"
+    },
+    "C": {
+      "item": "electroenergetics:connector"
+    },
+    "V": {
+      "item": "electroenergetics:transformer"
+    }
+  },
+  "result": {
+    "id": "ohecompat:ohe_booster",
+    "count": 1
+  }
+}

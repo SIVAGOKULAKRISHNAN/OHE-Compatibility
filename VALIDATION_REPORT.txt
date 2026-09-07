@@ -1,0 +1,35 @@
+OHE Compatibility Master Package — 2026-09-07
+
+DESIGN LOCK
+- P&W owns physical OHE/contact wire, native Energy Wire feeder, wire graph/rendering, tension and pantograph behavior.
+- CEE owns electrical supply/simulation and ground.
+- OHE Power Bridge is the CEE -> P&W catenary supply boundary.
+- OHE Feeder Bridge is the CEE -> P&W native Energy Wire feeder supply boundary.
+- CEE shadow nodes are invisible electrical mirrors only; they are not a second visible OHE system.
+- OHE and feeder shadow circuits are kept separate.
+
+IMPLEMENTED
+- C1/C2/C3/C4 paired sliding runner rods and end-pin geometry added to open/closed models.
+- D empty-hand right-click toggles OHE section mode / feeder mode; wrench operates the existing CEE HV switch.
+- Feeder Option 1/2 added; empty-hand right-click toggles support arrangement.
+- P&W native energy_wire is detected and mirrored into a separate CEE feeder circuit.
+- Exact endpoint matching is retained; no nearest-node electrical linking.
+- CEE ground remains native CEE ground-rod equipment.
+- Added master design and implementation documentation.
+
+SOURCE VERIFICATION
+- P&W 1.21.1 runtime JAR in the compatibility project was inspected directly.
+- Confirmed: ModWireRegistry.ENERGY_WIRE and registry id pantographsandwires:energy_wire.
+- Confirmed: FeederWireItem and PowerLineBracketBlock.
+- CEE 1.21.1 runtime JAR was inspected directly.
+- Confirmed: ConnectorBlock, GroundRodBlock, HVSwitchBlock, TransformerBlock, InWorldNode and InfrastructureSavedData.
+
+STATIC VALIDATION
+- 36 Java files present.
+- Java brace balance: PASS.
+- 52 JSON resources parsed: PASS.
+- Feeder block registration: PASS.
+- D feeder mode property: PASS.
+
+BUILD STATUS
+A full Gradle build is NOT claimed as successful in this environment. The project supplies gradlew.bat only, while this sandbox is Linux and does not expose the Windows command interpreter. Run `gradlew.bat clean build` on the user's Windows/Java 21 setup for final compilation/runtime verification.

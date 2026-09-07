@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "ohecompat:block/ohe_booster",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "ohecompat:block/ohe_booster",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "ohecompat:block/ohe_booster",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ohecompat:block/ohe_booster",
+      "y": 270
+    }
+  }
+}

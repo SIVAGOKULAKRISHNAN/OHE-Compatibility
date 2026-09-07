@@ -1,0 +1,68 @@
+{
+  "variants": {
+    "facing=north,handle_down=true,feeder_mode=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_down",
+      "y": 0
+    },
+    "facing=north,handle_down=true,feeder_mode=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_feeder_down",
+      "y": 0
+    },
+    "facing=north,handle_down=false,feeder_mode=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_up",
+      "y": 0
+    },
+    "facing=north,handle_down=false,feeder_mode=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_feeder_up",
+      "y": 0
+    },
+    "facing=east,handle_down=true,feeder_mode=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_down",
+      "y": 90
+    },
+    "facing=east,handle_down=true,feeder_mode=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_feeder_down",
+      "y": 90
+    },
+    "facing=east,handle_down=false,feeder_mode=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_up",
+      "y": 90
+    },
+    "facing=east,handle_down=false,feeder_mode=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_feeder_up",
+      "y": 90
+    },
+    "facing=south,handle_down=true,feeder_mode=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_down",
+      "y": 180
+    },
+    "facing=south,handle_down=true,feeder_mode=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_feeder_down",
+      "y": 180
+    },
+    "facing=south,handle_down=false,feeder_mode=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_up",
+      "y": 180
+    },
+    "facing=south,handle_down=false,feeder_mode=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_feeder_up",
+      "y": 180
+    },
+    "facing=west,handle_down=true,feeder_mode=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_down",
+      "y": 270
+    },
+    "facing=west,handle_down=true,feeder_mode=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_feeder_down",
+      "y": 270
+    },
+    "facing=west,handle_down=false,feeder_mode=false": {
+      "model": "ohecompat:block/ohe_switch_assembly_up",
+      "y": 270
+    },
+    "facing=west,handle_down=false,feeder_mode=true": {
+      "model": "ohecompat:block/ohe_switch_assembly_feeder_up",
+      "y": 270
+    }
+  }
+}

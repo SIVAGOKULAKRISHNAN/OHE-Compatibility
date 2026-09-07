@@ -1,0 +1,395 @@
+Compiled from "CatenaryWireItem.java"
+public class de.mrjulsen.paw.item.CatenaryWireItem implements de.mrjulsen.wires.item.IPawWireItemBase {
+  public static final java.lang.String NBT_CANTILEVER_INDEX;
+
+  private final net.minecraft.network.chat.Component txtNoRegistrationArm;
+
+  public de.mrjulsen.paw.item.CatenaryWireItem();
+    Code:
+       0: aload_0
+       1: invokespecial #27                 // Method java/lang/Object."<init>":()V
+       4: aload_0
+       5: ldc           #29                 // String item.pantographsandwires.catenary_headspan.dropper_missing_registration_arm
+       7: invokestatic  #35                 // Method de/mrjulsen/mcdragonlib/util/TextUtils.translate:(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+      10: getstatic     #41                 // Field net/minecraft/ChatFormatting.RED:Lnet/minecraft/ChatFormatting;
+      13: invokevirtual #47                 // Method net/minecraft/network/chat/MutableComponent.withStyle:(Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;
+      16: putfield      #49                 // Field txtNoRegistrationArm:Lnet/minecraft/network/chat/Component;
+      19: return
+
+  public de.mrjulsen.wires.IWireType getWireType(net.minecraft.world.item.ItemStack);
+    Code:
+       0: getstatic     #60                 // Field de/mrjulsen/paw/registry/ModWireRegistry.CATENARY_WIRE:Lde/mrjulsen/paw/item/CatenaryWireType;
+       3: areturn
+
+  public de.mrjulsen.wires.graph.registry.DLStaticRegistryObject<de.mrjulsen.wires.item.IPawWireItemBase> getRegistryType();
+    Code:
+       0: getstatic     #68                 // Field de/mrjulsen/paw/registry/ModWireRegistry.CATENARY_WIRE_ITEM_SUBTYPE:Lde/mrjulsen/wires/graph/registry/DLStaticRegistryObject;
+       3: checkcast     #70                 // class de/mrjulsen/wires/graph/registry/DLStaticRegistryObject
+       6: areturn
+
+  public java.lang.String getTranslationKey();
+    Code:
+       0: ldc           #74                 // String wire.pantographsandwires.catenary_wire
+       2: areturn
+
+  public de.mrjulsen.paw.client.gui.ModGuiIcons getIcon();
+    Code:
+       0: getstatic     #81                 // Field de/mrjulsen/paw/client/gui/ModGuiIcons.CATENARY_WIRE:Lde/mrjulsen/paw/client/gui/ModGuiIcons;
+       3: areturn
+
+  public net.minecraft.world.InteractionResult useWireOn(net.minecraft.world.item.context.UseOnContext);
+    Code:
+       0: aload_1
+       1: invokevirtual #90                 // Method net/minecraft/world/item/context/UseOnContext.getLevel:()Lnet/minecraft/world/level/Level;
+       4: getfield      #96                 // Field net/minecraft/world/level/Level.isClientSide:Z
+       7: ifne          43
+      10: aload_0
+      11: aload_1
+      12: invokevirtual #90                 // Method net/minecraft/world/item/context/UseOnContext.getLevel:()Lnet/minecraft/world/level/Level;
+      15: aload_1
+      16: invokevirtual #100                // Method net/minecraft/world/item/context/UseOnContext.getPlayer:()Lnet/minecraft/world/entity/player/Player;
+      19: aload_1
+      20: invokevirtual #104                // Method net/minecraft/world/item/context/UseOnContext.getHand:()Lnet/minecraft/world/InteractionHand;
+      23: invokevirtual #108                // Method useWire:(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;
+      26: invokevirtual #114                // Method net/minecraft/world/InteractionResultHolder.getResult:()Lnet/minecraft/world/InteractionResult;
+      29: astore_2
+      30: aload_2
+      31: getstatic     #120                // Field net/minecraft/world/InteractionResult.FAIL:Lnet/minecraft/world/InteractionResult;
+      34: if_acmpne     43
+      37: aload_0
+      38: aload_1
+      39: invokespecial #122                // InterfaceMethod de/mrjulsen/wires/item/IPawWireItemBase.useWireOn:(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;
+      42: areturn
+      43: getstatic     #125                // Field net/minecraft/world/InteractionResult.SUCCESS:Lnet/minecraft/world/InteractionResult;
+      46: areturn
+
+  public net.minecraft.world.InteractionResultHolder<net.minecraft.world.item.ItemStack> useWire(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
+    Code:
+       0: ldc2_w        #132                // double 5.0d
+       3: dstore        4
+       5: new           #135                // class org/joml/Vector3d
+       8: dup
+       9: aload_2
+      10: invokevirtual #141                // Method net/minecraft/world/entity/player/Player.getEyePosition:()Lnet/minecraft/world/phys/Vec3;
+      13: invokevirtual #147                // Method net/minecraft/world/phys/Vec3.x:()D
+      16: aload_2
+      17: invokevirtual #141                // Method net/minecraft/world/entity/player/Player.getEyePosition:()Lnet/minecraft/world/phys/Vec3;
+      20: invokevirtual #150                // Method net/minecraft/world/phys/Vec3.y:()D
+      23: aload_2
+      24: invokevirtual #141                // Method net/minecraft/world/entity/player/Player.getEyePosition:()Lnet/minecraft/world/phys/Vec3;
+      27: invokevirtual #153                // Method net/minecraft/world/phys/Vec3.z:()D
+      30: invokespecial #156                // Method org/joml/Vector3d."<init>":(DDD)V
+      33: astore        6
+      35: aload         6
+      37: new           #135                // class org/joml/Vector3d
+      40: dup
+      41: aload         6
+      43: invokespecial #159                // Method org/joml/Vector3d."<init>":(Lorg/joml/Vector3dc;)V
+      46: new           #135                // class org/joml/Vector3d
+      49: dup
+      50: aload_2
+      51: invokevirtual #162                // Method net/minecraft/world/entity/player/Player.getLookAngle:()Lnet/minecraft/world/phys/Vec3;
+      54: invokevirtual #147                // Method net/minecraft/world/phys/Vec3.x:()D
+      57: aload_2
+      58: invokevirtual #162                // Method net/minecraft/world/entity/player/Player.getLookAngle:()Lnet/minecraft/world/phys/Vec3;
+      61: invokevirtual #150                // Method net/minecraft/world/phys/Vec3.y:()D
+      64: aload_2
+      65: invokevirtual #162                // Method net/minecraft/world/entity/player/Player.getLookAngle:()Lnet/minecraft/world/phys/Vec3;
+      68: invokevirtual #153                // Method net/minecraft/world/phys/Vec3.z:()D
+      71: invokespecial #156                // Method org/joml/Vector3d."<init>":(DDD)V
+      74: invokevirtual #166                // Method org/joml/Vector3d.normalize:()Lorg/joml/Vector3d;
+      77: dload         4
+      79: invokevirtual #170                // Method org/joml/Vector3d.mul:(D)Lorg/joml/Vector3d;
+      82: invokevirtual #174                // Method org/joml/Vector3d.add:(Lorg/joml/Vector3dc;)Lorg/joml/Vector3d;
+      85: aload_1
+      86: ldc           #175                // float 6.5f
+      88: dload         4
+      90: invokedynamic #193,  0            // InvokeDynamic #0:tryHit:(D)Lde/mrjulsen/paw/util/collision/ICollisionProvider;
+      95: invokestatic  #199                // Method de/mrjulsen/paw/util/collision/RaycastUtils.rayTrace:(Lorg/joml/Vector3d;Lorg/joml/Vector3d;Lnet/minecraft/world/level/Level;FLde/mrjulsen/paw/util/collision/ICollisionProvider;)Ljava/util/Optional;
+      98: astore        7
+     100: aload         7
+     102: aload_0
+     103: aload_1
+     104: aload_2
+     105: aload_3
+     106: invokedynamic #212,  0            // InvokeDynamic #1:accept:(Lde/mrjulsen/paw/item/CatenaryWireItem;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Ljava/util/function/Consumer;
+     111: invokevirtual #218                // Method java/util/Optional.ifPresent:(Ljava/util/function/Consumer;)V
+     114: aload         7
+     116: invokevirtual #222                // Method java/util/Optional.isPresent:()Z
+     119: ifeq          133
+     122: aload_2
+     123: aload_3
+     124: invokevirtual #226                // Method net/minecraft/world/entity/player/Player.getItemInHand:(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemStack;
+     127: invokestatic  #230                // Method net/minecraft/world/InteractionResultHolder.success:(Ljava/lang/Object;)Lnet/minecraft/world/InteractionResultHolder;
+     130: goto          141
+     133: aload_2
+     134: aload_3
+     135: invokevirtual #226                // Method net/minecraft/world/entity/player/Player.getItemInHand:(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemStack;
+     138: invokestatic  #233                // Method net/minecraft/world/InteractionResultHolder.fail:(Ljava/lang/Object;)Lnet/minecraft/world/InteractionResultHolder;
+     141: areturn
+
+  public net.minecraft.world.InteractionResult interactWithWire(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, de.mrjulsen.paw.data.WireHitResult);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: aload_2
+       3: aload_3
+       4: aload         4
+       6: invokedynamic #257,  0            // InvokeDynamic #2:accept:()Ljava/util/function/BiConsumer;
+      11: invokevirtual #261                // Method placeWire:(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/HitResult;Ljava/util/function/BiConsumer;)Lnet/minecraft/world/InteractionResult;
+      14: areturn
+
+  public de.mrjulsen.wires.graph.data.node.NodeData createNodeData(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, net.minecraft.world.phys.HitResult);
+    Code:
+       0: aload         4
+       2: instanceof    #266                // class de/mrjulsen/paw/data/WireHitResult
+       5: ifeq          86
+       8: aload         4
+      10: checkcast     #266                // class de/mrjulsen/paw/data/WireHitResult
+      13: astore        5
+      15: aload_1
+      16: aload         5
+      18: invokevirtual #270                // Method de/mrjulsen/paw/data/WireHitResult.getGraphId:()Lde/mrjulsen/wires/util/GraphId;
+      21: invokestatic  #276                // Method de/mrjulsen/wires/graph/WireGraphManager.get:(Lnet/minecraft/world/level/Level;Lde/mrjulsen/wires/util/GraphId;)Lde/mrjulsen/wires/graph/WireGraph;
+      24: aload         5
+      26: invokevirtual #280                // Method de/mrjulsen/paw/data/WireHitResult.getWireId:()Lde/mrjulsen/wires/network/WireId;
+      29: invokevirtual #286                // Method de/mrjulsen/wires/network/WireId.id:()Ljava/util/UUID;
+      32: invokevirtual #292                // Method de/mrjulsen/wires/graph/WireGraph.getEdge:(Ljava/util/UUID;)Lde/mrjulsen/wires/graph/WireEdge;
+      35: aload         5
+      37: invokevirtual #280                // Method de/mrjulsen/paw/data/WireHitResult.getWireId:()Lde/mrjulsen/wires/network/WireId;
+      40: invokestatic  #298                // Method de/mrjulsen/paw/item/CatenaryHeadspanWireType.canConnectCatenary:(Lde/mrjulsen/wires/graph/WireEdge;Lde/mrjulsen/wires/network/WireId;)Lde/mrjulsen/mcdragonlib/util/Pair;
+      43: astore        6
+      45: aload         6
+      47: invokevirtual #304                // Method de/mrjulsen/mcdragonlib/util/Pair.getFirst:()Ljava/lang/Object;
+      50: checkcast     #306                // class java/lang/Boolean
+      53: invokevirtual #309                // Method java/lang/Boolean.booleanValue:()Z
+      56: ifeq          75
+      59: new           #311                // class de/mrjulsen/wires/graph/data/node/CatenaryHeadspanConnectionNodeData
+      62: dup
+      63: aload         6
+      65: invokevirtual #314                // Method de/mrjulsen/mcdragonlib/util/Pair.getSecond:()Ljava/lang/Object;
+      68: checkcast     #282                // class de/mrjulsen/wires/network/WireId
+      71: invokespecial #317                // Method de/mrjulsen/wires/graph/data/node/CatenaryHeadspanConnectionNodeData."<init>":(Lde/mrjulsen/wires/network/WireId;)V
+      74: areturn
+      75: aload_2
+      76: aload_0
+      77: getfield      #49                 // Field txtNoRegistrationArm:Lnet/minecraft/network/chat/Component;
+      80: iconst_1
+      81: invokevirtual #321                // Method net/minecraft/world/entity/player/Player.displayClientMessage:(Lnet/minecraft/network/chat/Component;Z)V
+      84: aconst_null
+      85: areturn
+      86: aconst_null
+      87: astore        5
+      89: aload         4
+      91: instanceof    #323                // class net/minecraft/world/phys/BlockHitResult
+      94: ifeq          114
+      97: aload         4
+      99: checkcast     #323                // class net/minecraft/world/phys/BlockHitResult
+     102: astore        6
+     104: aload         6
+     106: invokevirtual #327                // Method net/minecraft/world/phys/BlockHitResult.getBlockPos:()Lnet/minecraft/core/BlockPos;
+     109: astore        5
+     111: goto          136
+     114: aload         4
+     116: instanceof    #329                // class de/mrjulsen/paw/util/collision/RaycastHitResult
+     119: ifeq          136
+     122: aload         4
+     124: checkcast     #329                // class de/mrjulsen/paw/util/collision/RaycastHitResult
+     127: astore        7
+     129: aload         7
+     131: invokevirtual #330                // Method de/mrjulsen/paw/util/collision/RaycastHitResult.getBlockPos:()Lnet/minecraft/core/BlockPos;
+     134: astore        5
+     136: aload         5
+     138: ifnull        210
+     141: aload_1
+     142: aload         5
+     144: invokevirtual #340                // Method net/minecraft/world/level/Level.getBlockEntity:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+     147: instanceof    #342                // class de/mrjulsen/wires/block/WireConnectorBlockEntity
+     150: ifeq          210
+     153: aload_1
+     154: aload         5
+     156: invokevirtual #346                // Method net/minecraft/world/level/Level.getBlockState:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+     159: invokevirtual #352                // Method net/minecraft/world/level/block/state/BlockState.getBlock:()Lnet/minecraft/world/level/block/Block;
+     162: astore        7
+     164: aload         7
+     166: instanceof    #354                // class de/mrjulsen/paw/block/abstractions/ICatenaryWireConnector
+     169: ifeq          210
+     172: aload         7
+     174: checkcast     #354                // class de/mrjulsen/paw/block/abstractions/ICatenaryWireConnector
+     177: astore        6
+     179: aload         6
+     181: aload_1
+     182: aload         5
+     184: aload_1
+     185: aload         5
+     187: invokevirtual #346                // Method net/minecraft/world/level/Level.getBlockState:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+     190: invokeinterface #358,  4          // InterfaceMethod de/mrjulsen/paw/block/abstractions/ICatenaryWireConnector.canConnectWire:(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
+     195: ifne          200
+     198: aconst_null
+     199: areturn
+     200: new           #362                // class de/mrjulsen/wires/graph/data/node/BlockConnectorNodeData
+     203: dup
+     204: aload         5
+     206: invokespecial #365                // Method de/mrjulsen/wires/graph/data/node/BlockConnectorNodeData."<init>":(Lnet/minecraft/core/BlockPos;)V
+     209: areturn
+     210: aconst_null
+     211: areturn
+
+  private static void lambda$interactWithWire$3(net.minecraft.nbt.CompoundTag, net.minecraft.nbt.CompoundTag);
+    Code:
+       0: return
+
+  private void lambda$useWire$2(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, de.mrjulsen.paw.util.collision.RaycastHitResult);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: aload_2
+       3: aload_3
+       4: aload         4
+       6: aload         4
+       8: invokedynamic #386,  0            // InvokeDynamic #3:accept:(Lde/mrjulsen/paw/util/collision/RaycastHitResult;)Ljava/util/function/BiConsumer;
+      13: invokevirtual #261                // Method placeWire:(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/HitResult;Ljava/util/function/BiConsumer;)Lnet/minecraft/world/InteractionResult;
+      16: pop
+      17: return
+
+  private static void lambda$useWire$1(de.mrjulsen.paw.util.collision.RaycastHitResult, net.minecraft.nbt.CompoundTag, net.minecraft.nbt.CompoundTag);
+    Code:
+       0: aload_2
+       1: ldc           #21                 // String CantileverIndex
+       3: aload_0
+       4: invokevirtual #391                // Method de/mrjulsen/paw/util/collision/RaycastHitResult.getHitData:()Ljava/lang/Object;
+       7: checkcast     #393                // class java/lang/Integer
+      10: invokevirtual #397                // Method java/lang/Integer.intValue:()I
+      13: invokevirtual #403                // Method net/minecraft/nbt/CompoundTag.putInt:(Ljava/lang/String;I)V
+      16: return
+
+  private static java.util.Optional lambda$useWire$0(double, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, org.joml.Vector3d, org.joml.Vector3d);
+    Code:
+       0: aload_2
+       1: aload_3
+       2: invokevirtual #346                // Method net/minecraft/world/level/Level.getBlockState:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+       5: invokevirtual #352                // Method net/minecraft/world/level/block/state/BlockState.getBlock:()Lnet/minecraft/world/level/block/Block;
+       8: instanceof    #408                // class de/mrjulsen/paw/block/CantileverBlock
+      11: ifeq          39
+      14: aload_2
+      15: aload_3
+      16: invokevirtual #340                // Method net/minecraft/world/level/Level.getBlockEntity:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+      19: astore        7
+      21: aload         7
+      23: instanceof    #11                 // class de/mrjulsen/paw/blockentity/CantileverBlockEntity
+      26: ifeq          39
+      29: aload         7
+      31: checkcast     #11                 // class de/mrjulsen/paw/blockentity/CantileverBlockEntity
+      34: astore        6
+      36: goto          43
+      39: invokestatic  #412                // Method java/util/Optional.empty:()Ljava/util/Optional;
+      42: areturn
+      43: aconst_null
+      44: astore        7
+      46: iconst_0
+      47: istore        8
+      49: iload         8
+      51: aload         6
+      53: invokevirtual #418                // Method de/mrjulsen/paw/blockentity/CantileverBlockEntity.getSubCantileverSettings:()Ljava/util/List;
+      56: invokeinterface #423,  1          // InterfaceMethod java/util/List.size:()I
+      61: if_icmpge     276
+      64: aload         6
+      66: iload         8
+      68: invokevirtual #427                // Method de/mrjulsen/paw/blockentity/CantileverBlockEntity.getCantileverInteractionShape:(I)Lde/mrjulsen/paw/blockentity/CantileverBlockEntity$CantileverShapeData;
+      71: astore        9
+      73: iconst_2
+      74: anewarray     #429                // class de/mrjulsen/paw/util/collision/LineShape
+      77: dup
+      78: iconst_0
+      79: new           #429                // class de/mrjulsen/paw/util/collision/LineShape
+      82: dup
+      83: aload         9
+      85: invokevirtual #433                // Method de/mrjulsen/paw/blockentity/CantileverBlockEntity$CantileverShapeData.stayTubeRoot:()Lorg/joml/Vector3f;
+      88: aload         9
+      90: invokevirtual #436                // Method de/mrjulsen/paw/blockentity/CantileverBlockEntity$CantileverShapeData.front:()Lorg/joml/Vector3f;
+      93: ldc_w         #437                // float 0.125f
+      96: invokespecial #440                // Method de/mrjulsen/paw/util/collision/LineShape."<init>":(Lorg/joml/Vector3f;Lorg/joml/Vector3f;F)V
+      99: aastore
+     100: dup
+     101: iconst_1
+     102: new           #429                // class de/mrjulsen/paw/util/collision/LineShape
+     105: dup
+     106: aload         9
+     108: invokevirtual #443                // Method de/mrjulsen/paw/blockentity/CantileverBlockEntity$CantileverShapeData.bracketTubeRoot:()Lorg/joml/Vector3f;
+     111: aload         9
+     113: invokevirtual #436                // Method de/mrjulsen/paw/blockentity/CantileverBlockEntity$CantileverShapeData.front:()Lorg/joml/Vector3f;
+     116: ldc_w         #437                // float 0.125f
+     119: invokespecial #440                // Method de/mrjulsen/paw/util/collision/LineShape."<init>":(Lorg/joml/Vector3f;Lorg/joml/Vector3f;F)V
+     122: aastore
+     123: astore        10
+     125: aload         10
+     127: astore        11
+     129: aload         11
+     131: arraylength
+     132: istore        12
+     134: iconst_0
+     135: istore        13
+     137: iload         13
+     139: iload         12
+     141: if_icmpge     270
+     144: aload         11
+     146: iload         13
+     148: aaload
+     149: astore        14
+     151: aload         14
+     153: aload         4
+     155: aload         5
+     157: invokevirtual #449                // Method de/mrjulsen/paw/util/collision/LineShape.intersects:(Lorg/joml/Vector3d;Lorg/joml/Vector3d;)Ljava/util/Optional;
+     160: astore        15
+     162: aload         15
+     164: invokevirtual #222                // Method java/util/Optional.isPresent:()Z
+     167: ifeq          264
+     170: aload         15
+     172: invokevirtual #451                // Method java/util/Optional.get:()Ljava/lang/Object;
+     175: checkcast     #135                // class org/joml/Vector3d
+     178: astore        16
+     180: new           #135                // class org/joml/Vector3d
+     183: dup
+     184: aload         16
+     186: invokespecial #159                // Method org/joml/Vector3d."<init>":(Lorg/joml/Vector3dc;)V
+     189: aload         4
+     191: invokevirtual #454                // Method org/joml/Vector3d.sub:(Lorg/joml/Vector3dc;)Lorg/joml/Vector3d;
+     194: invokevirtual #457                // Method org/joml/Vector3d.length:()D
+     197: dstore        17
+     199: dload         17
+     201: dload_0
+     202: dcmpl
+     203: ifle          209
+     206: goto          264
+     209: aload         7
+     211: ifnull        225
+     214: dload         17
+     216: aload         7
+     218: invokevirtual #460                // Method de/mrjulsen/paw/util/collision/RaycastHitResult.getDistance:()D
+     221: dcmpg
+     222: ifge          264
+     225: new           #329                // class de/mrjulsen/paw/util/collision/RaycastHitResult
+     228: dup
+     229: new           #143                // class net/minecraft/world/phys/Vec3
+     232: dup
+     233: aload         16
+     235: invokevirtual #461                // Method org/joml/Vector3d.x:()D
+     238: aload         16
+     240: invokevirtual #462                // Method org/joml/Vector3d.y:()D
+     243: aload         16
+     245: invokevirtual #463                // Method org/joml/Vector3d.z:()D
+     248: invokespecial #464                // Method net/minecraft/world/phys/Vec3."<init>":(DDD)V
+     251: aload_3
+     252: dload         17
+     254: iload         8
+     256: invokestatic  #468                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+     259: invokespecial #471                // Method de/mrjulsen/paw/util/collision/RaycastHitResult."<init>":(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/BlockPos;DLjava/lang/Object;)V
+     262: astore        7
+     264: iinc          13, 1
+     267: goto          137
+     270: iinc          8, 1
+     273: goto          49
+     276: aload         7
+     278: invokestatic  #475                // Method java/util/Optional.ofNullable:(Ljava/lang/Object;)Ljava/util/Optional;
+     281: areturn
+}

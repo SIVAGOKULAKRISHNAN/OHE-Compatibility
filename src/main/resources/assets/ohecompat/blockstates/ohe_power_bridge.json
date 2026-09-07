@@ -1,0 +1,556 @@
+{
+  "variants": {
+    "facing=down,logged_state=dry,style=hanger": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=dry,style=long": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=dry,style=long_hanger": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=dry,style=outer": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=dry,style=short": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=dry,style=short_hanger": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=dry,style=shorter": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=dry,style=uninsulated": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=oillogged,style=hanger": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=oillogged,style=long": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=oillogged,style=long_hanger": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=oillogged,style=outer": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=oillogged,style=short": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=oillogged,style=short_hanger": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=oillogged,style=shorter": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=oillogged,style=uninsulated": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=waterlogged,style=hanger": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=waterlogged,style=long": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=waterlogged,style=long_hanger": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=waterlogged,style=outer": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=waterlogged,style=short": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=waterlogged,style=short_hanger": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=waterlogged,style=shorter": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=down,logged_state=waterlogged,style=uninsulated": {
+      "x": 180,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=dry,style=hanger": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=dry,style=long": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=dry,style=long_hanger": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=dry,style=outer": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=dry,style=short": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=dry,style=short_hanger": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=dry,style=shorter": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=dry,style=uninsulated": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=oillogged,style=hanger": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=oillogged,style=long": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=oillogged,style=long_hanger": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=oillogged,style=outer": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=oillogged,style=short": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=oillogged,style=short_hanger": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=oillogged,style=shorter": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=oillogged,style=uninsulated": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=waterlogged,style=hanger": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=waterlogged,style=long": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=waterlogged,style=long_hanger": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=waterlogged,style=outer": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=waterlogged,style=short": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=waterlogged,style=short_hanger": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=waterlogged,style=shorter": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=east,logged_state=waterlogged,style=uninsulated": {
+      "y": 270,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=north,logged_state=dry,style=hanger": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=dry,style=long": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=dry,style=long_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=dry,style=outer": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=dry,style=short": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=dry,style=short_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=dry,style=shorter": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=dry,style=uninsulated": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=oillogged,style=hanger": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=oillogged,style=long": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=oillogged,style=long_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=oillogged,style=outer": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=oillogged,style=short": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=oillogged,style=short_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=oillogged,style=shorter": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=oillogged,style=uninsulated": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=waterlogged,style=hanger": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=waterlogged,style=long": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=waterlogged,style=long_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=waterlogged,style=outer": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=waterlogged,style=short": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=waterlogged,style=short_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=waterlogged,style=shorter": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=north,logged_state=waterlogged,style=uninsulated": {
+      "model": "ohecompat:block/ohe_power_bridge",
+      "y": 180
+    },
+    "facing=south,logged_state=dry,style=hanger": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=dry,style=long": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=dry,style=long_hanger": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=dry,style=outer": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=dry,style=short": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=dry,style=short_hanger": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=dry,style=shorter": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=dry,style=uninsulated": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=oillogged,style=hanger": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=oillogged,style=long": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=oillogged,style=long_hanger": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=oillogged,style=outer": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=oillogged,style=short": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=oillogged,style=short_hanger": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=oillogged,style=shorter": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=oillogged,style=uninsulated": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=waterlogged,style=hanger": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=waterlogged,style=long": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=waterlogged,style=long_hanger": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=waterlogged,style=outer": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=waterlogged,style=short": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=waterlogged,style=short_hanger": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=waterlogged,style=shorter": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=south,logged_state=waterlogged,style=uninsulated": {
+      "y": 0,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=dry,style=hanger": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=dry,style=long": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=dry,style=long_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=dry,style=outer": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=dry,style=short": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=dry,style=short_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=dry,style=shorter": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=dry,style=uninsulated": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=oillogged,style=hanger": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=oillogged,style=long": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=oillogged,style=long_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=oillogged,style=outer": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=oillogged,style=short": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=oillogged,style=short_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=oillogged,style=shorter": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=oillogged,style=uninsulated": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=waterlogged,style=hanger": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=waterlogged,style=long": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=waterlogged,style=long_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=waterlogged,style=outer": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=waterlogged,style=short": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=waterlogged,style=short_hanger": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=waterlogged,style=shorter": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=up,logged_state=waterlogged,style=uninsulated": {
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=dry,style=hanger": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=dry,style=long": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=dry,style=long_hanger": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=dry,style=outer": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=dry,style=short": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=dry,style=short_hanger": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=dry,style=shorter": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=dry,style=uninsulated": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=oillogged,style=hanger": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=oillogged,style=long": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=oillogged,style=long_hanger": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=oillogged,style=outer": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=oillogged,style=short": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=oillogged,style=short_hanger": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=oillogged,style=shorter": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=oillogged,style=uninsulated": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=waterlogged,style=hanger": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=waterlogged,style=long": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=waterlogged,style=long_hanger": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=waterlogged,style=outer": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=waterlogged,style=short": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=waterlogged,style=short_hanger": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=waterlogged,style=shorter": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    },
+    "facing=west,logged_state=waterlogged,style=uninsulated": {
+      "y": 90,
+      "model": "ohecompat:block/ohe_power_bridge"
+    }
+  }
+}

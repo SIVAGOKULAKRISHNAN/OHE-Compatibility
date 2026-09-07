@@ -1,0 +1,68 @@
+Compiled from "DetachedNodeRenderer.java"
+public class com.george_vi.electroenergetics.client.DetachedNodeRenderer {
+  public com.george_vi.electroenergetics.client.DetachedNodeRenderer();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void render(net.minecraft.client.multiplayer.ClientLevel, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.MultiBufferSource, net.minecraft.client.Camera);
+    Code:
+       0: invokestatic  #7                  // Method net/minecraft/client/Minecraft.getInstance:()Lnet/minecraft/client/Minecraft;
+       3: astore        4
+       5: aload_1
+       6: invokevirtual #13                 // Method com/mojang/blaze3d/vertex/PoseStack.pushPose:()V
+       9: aload_1
+      10: aload_3
+      11: invokevirtual #18                 // Method net/minecraft/client/Camera.getPosition:()Lnet/minecraft/world/phys/Vec3;
+      14: invokevirtual #24                 // Method net/minecraft/world/phys/Vec3.x:()D
+      17: dneg
+      18: aload_3
+      19: invokevirtual #18                 // Method net/minecraft/client/Camera.getPosition:()Lnet/minecraft/world/phys/Vec3;
+      22: invokevirtual #30                 // Method net/minecraft/world/phys/Vec3.y:()D
+      25: dneg
+      26: aload_3
+      27: invokevirtual #18                 // Method net/minecraft/client/Camera.getPosition:()Lnet/minecraft/world/phys/Vec3;
+      30: invokevirtual #33                 // Method net/minecraft/world/phys/Vec3.z:()D
+      33: dneg
+      34: invokevirtual #36                 // Method com/mojang/blaze3d/vertex/PoseStack.translate:(DDD)V
+      37: getstatic     #40                 // Field com/george_vi/electroenergetics/client/WireRenderer.NODE_DATA:Ljava/util/Map;
+      40: invokeinterface #46,  1           // InterfaceMethod java/util/Map.values:()Ljava/util/Collection;
+      45: invokeinterface #52,  1           // InterfaceMethod java/util/Collection.iterator:()Ljava/util/Iterator;
+      50: astore        5
+      52: aload         5
+      54: invokeinterface #58,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z
+      59: ifeq          146
+      62: aload         5
+      64: invokeinterface #64,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+      69: checkcast     #68                 // class com/george_vi/electroenergetics/client/ClientNodeData
+      72: astore        6
+      74: aload         6
+      76: invokestatic  #70                 // Method net/createmod/catnip/animation/AnimationTickHolder.getPartialTicks:()F
+      79: invokevirtual #76                 // Method com/george_vi/electroenergetics/client/ClientNodeData.getPos:(F)Lnet/minecraft/world/phys/Vec3;
+      82: astore        7
+      84: aload         7
+      86: ifnonnull     92
+      89: goto          52
+      92: getstatic     #80                 // Field com/george_vi/electroenergetics/CEEPartialModels.WIRE_TIE:Ldev/engine_room/flywheel/lib/model/baked/PartialModel;
+      95: getstatic     #86                 // Field net/minecraft/world/level/block/Blocks.ANDESITE:Lnet/minecraft/world/level/block/Block;
+      98: invokevirtual #92                 // Method net/minecraft/world/level/block/Block.defaultBlockState:()Lnet/minecraft/world/level/block/state/BlockState;
+     101: invokestatic  #98                 // Method net/createmod/catnip/render/CachedBuffers.partial:(Ldev/engine_room/flywheel/lib/model/baked/PartialModel;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/createmod/catnip/render/SuperByteBuffer;
+     104: aload         7
+     106: invokeinterface #104,  2          // InterfaceMethod net/createmod/catnip/render/SuperByteBuffer.translate:(Lnet/minecraft/world/phys/Vec3;)Ldev/engine_room/flywheel/lib/transform/Translate;
+     111: checkcast     #105                // class net/createmod/catnip/render/SuperByteBuffer
+     114: aload_0
+     115: aload         7
+     117: invokestatic  #109                // Method net/minecraft/core/BlockPos.containing:(Lnet/minecraft/core/Position;)Lnet/minecraft/core/BlockPos;
+     120: invokestatic  #115                // Method net/minecraft/client/renderer/LevelRenderer.getLightColor:(Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;)I
+     123: invokeinterface #121,  2          // InterfaceMethod net/createmod/catnip/render/SuperByteBuffer.light:(I)Lnet/createmod/catnip/render/SuperByteBuffer;
+     128: aload_1
+     129: aload_2
+     130: invokestatic  #125                // Method net/minecraft/client/renderer/RenderType.cutout:()Lnet/minecraft/client/renderer/RenderType;
+     133: invokeinterface #131,  2          // InterfaceMethod net/minecraft/client/renderer/MultiBufferSource.getBuffer:(Lnet/minecraft/client/renderer/RenderType;)Lcom/mojang/blaze3d/vertex/VertexConsumer;
+     138: invokeinterface #137,  3          // InterfaceMethod net/createmod/catnip/render/SuperByteBuffer.renderInto:(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;)V
+     143: goto          52
+     146: aload_1
+     147: invokevirtual #141                // Method com/mojang/blaze3d/vertex/PoseStack.popPose:()V
+     150: return
+}

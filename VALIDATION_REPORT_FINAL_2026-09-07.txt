@@ -1,0 +1,33 @@
+OHE Compatibility final design validation — 2026-09-07
+
+DESIGN
+- P&W owns physical OHE/contact wire and native Energy Wire feeder network.
+- CEE owns electrical generation/simulation, transformers/substation/booster and ground.
+- OHE Power Bridge is the CEE-to-P&W OHE supply boundary.
+- OHE Feeder Bridge is the CEE-to-P&W native Energy Wire feeder boundary.
+- TSS Feeder Switch / Isolator is a CEE-native HV switch subclass used upstream of the feeder bridge.
+- TSS is an isolator/disconnector, not a circuit breaker; the existing CEE breaker remains upstream protection.
+- C1-C4 use the paired sliding runner concept; C1 is the full section-insulator/runner assembly, while C2-C4 retain their own neutral geometry.
+- D remains the railway-side OHE/feeder switching assembly.
+- Feeder Option 1/2 are physical support options and do not create separate electrical systems.
+- CEE ground rod remains on the CEE side.
+
+TSS POWER FLOW
+CEE substation/transformer -> CEE breaker -> TSS feeder isolator -> CEE feeder connection -> OHE Feeder Bridge -> P&W native energy_wire.
+
+SOURCE CHECK
+- Supplied CEE 1.21.1 source archive inspected: HVSwitchBlock, HVSwitchDevice, HVSwitchBlockEntity, GroundRodBlock.
+- Supplied project P&W 1.21.1 runtime JAR inspected: native energy_wire registry and Power Line infrastructure confirmed.
+- Supplied P&W source archive is mc1.20.1 and is retained as reference only; the compatibility project uses the supplied P&W 1.21.1 runtime JAR.
+
+STATIC VALIDATION
+- Java files: brace balance PASS.
+- JSON resources: all parse successfully.
+- TSS block registration, block entity registration, item registration, creative-tab registration: present.
+- TSS open/closed models and 16 facing/open/powered blockstate variants: present.
+- TSS loot table: present.
+
+BUILD
+- A complete Gradle compile could not be executed in this sandbox because the project wrapper attempts to download Gradle 8.13 from services.gradle.org and outbound DNS/network access is unavailable.
+- Therefore runtime/build success is NOT claimed here.
+- On the target Windows/Java 21 environment run: gradlew.bat clean build

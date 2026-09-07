@@ -1,0 +1,159 @@
+Compiled from "CatenaryHolderBlock.java"
+public class com.george_vi.electroenergetics.content.railway_electrification.catenary.CatenaryHolderBlock extends com.george_vi.electroenergetics.foundation.base.SimpleElectricalDeviceBlock<com.george_vi.electroenergetics.content.connector.ConnectorDevice> implements com.simibubi.create.foundation.block.IBE<com.george_vi.electroenergetics.content.railway_electrification.catenary.CatenaryHolderBlockEntity>, com.simibubi.create.foundation.block.ProperWaterloggedBlock {
+  public static final net.minecraft.world.level.block.state.properties.BooleanProperty WATERLOGGED;
+
+  public static final net.minecraft.world.level.block.state.properties.EnumProperty<com.george_vi.electroenergetics.content.railway_electrification.catenary.CatenaryHolderBlock$Style> STYLE;
+
+  public com.george_vi.electroenergetics.content.railway_electrification.catenary.CatenaryHolderBlock(net.minecraft.world.level.block.state.BlockBehaviour$Properties);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokespecial #1                  // Method com/george_vi/electroenergetics/foundation/base/SimpleElectricalDeviceBlock."<init>":(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+       5: aload_0
+       6: aload_0
+       7: invokevirtual #7                  // Method defaultBlockState:()Lnet/minecraft/world/level/block/state/BlockState;
+      10: getstatic     #13                 // Field WATERLOGGED:Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+      13: iconst_0
+      14: invokestatic  #17                 // Method java/lang/Boolean.valueOf:(Z)Ljava/lang/Boolean;
+      17: invokevirtual #23                 // Method net/minecraft/world/level/block/state/BlockState.setValue:(Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/Comparable;)Ljava/lang/Object;
+      20: checkcast     #24                 // class net/minecraft/world/level/block/state/BlockState
+      23: getstatic     #29                 // Field STYLE:Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+      26: getstatic     #33                 // Field com/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlock$Style.STANDARD:Lcom/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlock$Style;
+      29: invokevirtual #23                 // Method net/minecraft/world/level/block/state/BlockState.setValue:(Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/Comparable;)Ljava/lang/Object;
+      32: checkcast     #24                 // class net/minecraft/world/level/block/state/BlockState
+      35: invokevirtual #39                 // Method registerDefaultState:(Lnet/minecraft/world/level/block/state/BlockState;)V
+      38: return
+
+  protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState>);
+    Code:
+       0: aload_1
+       1: iconst_2
+       2: anewarray     #43                 // class net/minecraft/world/level/block/state/properties/Property
+       5: dup
+       6: iconst_0
+       7: getstatic     #13                 // Field WATERLOGGED:Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+      10: aastore
+      11: dup
+      12: iconst_1
+      13: getstatic     #29                 // Field STYLE:Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+      16: aastore
+      17: invokevirtual #45                 // Method net/minecraft/world/level/block/state/StateDefinition$Builder.add:([Lnet/minecraft/world/level/block/state/properties/Property;)Lnet/minecraft/world/level/block/state/StateDefinition$Builder;
+      20: pop
+      21: return
+
+  public net.minecraft.world.level.block.state.BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext);
+    Code:
+       0: aload_0
+       1: aload_0
+       2: invokevirtual #7                  // Method defaultBlockState:()Lnet/minecraft/world/level/block/state/BlockState;
+       5: aload_1
+       6: invokevirtual #51                 // Method withWater:(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;
+       9: areturn
+
+  protected net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, net.minecraft.core.BlockPos);
+    Code:
+       0: aload_0
+       1: aload         4
+       3: aload_1
+       4: aload         5
+       6: invokevirtual #55                 // Method updateWater:(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V
+       9: aload_1
+      10: areturn
+
+  public com.george_vi.electroenergetics.devices.device.SimulatedDeviceType<com.george_vi.electroenergetics.content.connector.ConnectorDevice> getDevice();
+    Code:
+       0: getstatic     #59                 // Field com/george_vi/electroenergetics/CEESimulatedDevices.CONNECTOR:Lnet/neoforged/neoforge/registries/DeferredHolder;
+       3: invokevirtual #65                 // Method net/neoforged/neoforge/registries/DeferredHolder.get:()Ljava/lang/Object;
+       6: checkcast     #71                 // class com/george_vi/electroenergetics/devices/device/SimulatedDeviceType
+       9: areturn
+
+  protected net.minecraft.world.phys.shapes.VoxelShape getShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.phys.shapes.CollisionContext);
+    Code:
+       0: aload_1
+       1: getstatic     #29                 // Field STYLE:Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+       4: invokevirtual #73                 // Method net/minecraft/world/level/block/state/BlockState.getValue:(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;
+       7: checkcast     #34                 // class com/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlock$Style
+      10: invokevirtual #77                 // Method com/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlock$Style.isLow:()Z
+      13: ifeq          28
+      16: getstatic     #81                 // Field com/george_vi/electroenergetics/CEEShapes.CATENARY_HOLDER_LOW:Lnet/createmod/catnip/math/VoxelShaper;
+      19: getstatic     #87                 // Field net/minecraft/core/Direction$Axis.Y:Lnet/minecraft/core/Direction$Axis;
+      22: invokevirtual #93                 // Method net/createmod/catnip/math/VoxelShaper.get:(Lnet/minecraft/core/Direction$Axis;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+      25: goto          37
+      28: getstatic     #98                 // Field com/george_vi/electroenergetics/CEEShapes.CATENARY_HOLDER:Lnet/createmod/catnip/math/VoxelShaper;
+      31: getstatic     #87                 // Field net/minecraft/core/Direction$Axis.Y:Lnet/minecraft/core/Direction$Axis;
+      34: invokevirtual #93                 // Method net/createmod/catnip/math/VoxelShaper.get:(Lnet/minecraft/core/Direction$Axis;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+      37: areturn
+
+  public java.util.Map<java.lang.Integer, net.minecraft.world.phys.Vec3> getNodePositions(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
+    Code:
+       0: iconst_0
+       1: invokestatic  #101                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       4: new           #106                // class net/minecraft/world/phys/Vec3
+       7: dup
+       8: ldc2_w        #108                // double 0.5d
+      11: aload_3
+      12: getstatic     #29                 // Field STYLE:Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+      15: invokevirtual #73                 // Method net/minecraft/world/level/block/state/BlockState.getValue:(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;
+      18: checkcast     #34                 // class com/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlock$Style
+      21: invokevirtual #77                 // Method com/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlock$Style.isLow:()Z
+      24: ifeq          33
+      27: ldc2_w        #108                // double 0.5d
+      30: goto          36
+      33: ldc2_w        #110                // double 22.0d
+      36: ldc2_w        #112                // double 16.0d
+      39: ddiv
+      40: ldc2_w        #108                // double 0.5d
+      43: invokespecial #114                // Method net/minecraft/world/phys/Vec3."<init>":(DDD)V
+      46: invokestatic  #117                // InterfaceMethod java/util/Map.of:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;
+      49: areturn
+
+  public net.minecraft.world.phys.Vec3 getNodePosition(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, int);
+    Code:
+       0: new           #106                // class net/minecraft/world/phys/Vec3
+       3: dup
+       4: ldc2_w        #108                // double 0.5d
+       7: aload_3
+       8: getstatic     #29                 // Field STYLE:Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+      11: invokevirtual #73                 // Method net/minecraft/world/level/block/state/BlockState.getValue:(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;
+      14: checkcast     #34                 // class com/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlock$Style
+      17: invokevirtual #77                 // Method com/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlock$Style.isLow:()Z
+      20: ifeq          29
+      23: ldc2_w        #108                // double 0.5d
+      26: goto          32
+      29: ldc2_w        #110                // double 22.0d
+      32: ldc2_w        #112                // double 16.0d
+      35: ddiv
+      36: ldc2_w        #108                // double 0.5d
+      39: invokespecial #114                // Method net/minecraft/world/phys/Vec3."<init>":(DDD)V
+      42: areturn
+
+  public net.minecraft.world.level.block.state.BlockState getRotatedBlockState(net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction);
+    Code:
+       0: aload_1
+       1: getstatic     #29                 // Field STYLE:Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+       4: invokevirtual #123                // Method net/minecraft/world/level/block/state/BlockState.cycle:(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Object;
+       7: checkcast     #24                 // class net/minecraft/world/level/block/state/BlockState
+      10: areturn
+
+  public java.lang.Class<com.george_vi.electroenergetics.content.railway_electrification.catenary.CatenaryHolderBlockEntity> getBlockEntityClass();
+    Code:
+       0: ldc           #127                // class com/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlockEntity
+       2: areturn
+
+  public net.minecraft.world.level.block.entity.BlockEntityType<? extends com.george_vi.electroenergetics.content.railway_electrification.catenary.CatenaryHolderBlockEntity> getBlockEntityType();
+    Code:
+       0: getstatic     #129                // Field com/george_vi/electroenergetics/CEEBlockEntityTypes.CATENARY_HOLDER:Lcom/tterrag/registrate/util/entry/BlockEntityEntry;
+       3: invokevirtual #134                // Method com/tterrag/registrate/util/entry/BlockEntityEntry.get:()Ljava/lang/Object;
+       6: checkcast     #137                // class net/minecraft/world/level/block/entity/BlockEntityType
+       9: areturn
+
+  static {};
+    Code:
+       0: getstatic     #139                // Field net/minecraft/world/level/block/state/properties/BlockStateProperties.WATERLOGGED:Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+       3: putstatic     #13                 // Field WATERLOGGED:Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+       6: ldc           #142                // String style
+       8: ldc           #34                 // class com/george_vi/electroenergetics/content/railway_electrification/catenary/CatenaryHolderBlock$Style
+      10: invokestatic  #144                // Method net/minecraft/world/level/block/state/properties/EnumProperty.create:(Ljava/lang/String;Ljava/lang/Class;)Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+      13: putstatic     #29                 // Field STYLE:Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+      16: return
+}

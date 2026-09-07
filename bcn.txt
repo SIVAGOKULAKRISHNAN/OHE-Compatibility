@@ -1,0 +1,411 @@
+Compiled from "BlockConnectorNodeData.java"
+public class de.mrjulsen.wires.graph.data.node.BlockConnectorNodeData extends de.mrjulsen.wires.graph.data.node.NodeData {
+  private static final java.lang.String NBT_POS;
+
+  private static final java.lang.String NBT_PENDING;
+
+  private net.minecraft.core.BlockPos pos;
+
+  private boolean pending;
+
+  public de.mrjulsen.wires.graph.data.node.BlockConnectorNodeData();
+    Code:
+       0: aload_0
+       1: invokespecial #30                 // Method de/mrjulsen/wires/graph/data/node/NodeData."<init>":()V
+       4: return
+
+  public de.mrjulsen.wires.graph.data.node.BlockConnectorNodeData(net.minecraft.core.BlockPos);
+    Code:
+       0: aload_0
+       1: invokespecial #30                 // Method de/mrjulsen/wires/graph/data/node/NodeData."<init>":()V
+       4: aload_0
+       5: aload_1
+       6: putfield      #35                 // Field pos:Lnet/minecraft/core/BlockPos;
+       9: return
+
+  public net.minecraft.core.BlockPos getPos();
+    Code:
+       0: aload_0
+       1: getfield      #35                 // Field pos:Lnet/minecraft/core/BlockPos;
+       4: areturn
+
+  public boolean isPending();
+    Code:
+       0: aload_0
+       1: getfield      #41                 // Field pending:Z
+       4: ireturn
+
+  public de.mrjulsen.wires.graph.registry.NodeDataRegistryObject<de.mrjulsen.wires.graph.data.node.NodeData, de.mrjulsen.wires.graph.data.accessor.NodeAccessor<de.mrjulsen.wires.graph.data.node.NodeData>> getRegistryType();
+    Code:
+       0: getstatic     #50                 // Field de/mrjulsen/wires/WiresApi.BLOCK_CONNECTOR:Lde/mrjulsen/wires/graph/registry/NodeDataRegistryObject;
+       3: checkcast     #52                 // class de/mrjulsen/wires/graph/registry/NodeDataRegistryObject
+       6: areturn
+
+  public net.minecraft.nbt.CompoundTag serializeNbt();
+    Code:
+       0: new           #56                 // class net/minecraft/nbt/CompoundTag
+       3: dup
+       4: invokespecial #57                 // Method net/minecraft/nbt/CompoundTag."<init>":()V
+       7: astore_1
+       8: aload_1
+       9: ldc           #19                 // String Pos
+      11: aload_0
+      12: getfield      #35                 // Field pos:Lnet/minecraft/core/BlockPos;
+      15: invokestatic  #63                 // Method de/mrjulsen/wires/util/Utils.putNbtBlockPos:(Lnet/minecraft/nbt/CompoundTag;Ljava/lang/String;Lnet/minecraft/core/BlockPos;)V
+      18: aload_0
+      19: getfield      #41                 // Field pending:Z
+      22: ifeq          35
+      25: aload_1
+      26: ldc           #22                 // String IsPending
+      28: aload_0
+      29: getfield      #41                 // Field pending:Z
+      32: invokevirtual #67                 // Method net/minecraft/nbt/CompoundTag.putBoolean:(Ljava/lang/String;Z)V
+      35: aload_1
+      36: areturn
+
+  public void deserializeNbt(net.minecraft.nbt.CompoundTag);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: ldc           #19                 // String Pos
+       4: invokestatic  #75                 // Method de/mrjulsen/wires/util/Utils.getNbtBlockPos:(Lnet/minecraft/nbt/CompoundTag;Ljava/lang/String;)Lnet/minecraft/core/BlockPos;
+       7: putfield      #35                 // Field pos:Lnet/minecraft/core/BlockPos;
+      10: aload_0
+      11: aload_1
+      12: ldc           #22                 // String IsPending
+      14: invokevirtual #79                 // Method net/minecraft/nbt/CompoundTag.getBoolean:(Ljava/lang/String;)Z
+      17: putfield      #41                 // Field pending:Z
+      20: return
+
+  public de.mrjulsen.wires.graph.WireNode getOrCreateNode(de.mrjulsen.wires.graph.WireGraph);
+    Code:
+       0: aload_1
+       1: invokevirtual #88                 // Method de/mrjulsen/wires/graph/WireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+       4: aload_0
+       5: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+       8: invokevirtual #96                 // Method net/minecraft/world/level/Level.isLoaded:(Lnet/minecraft/core/BlockPos;)Z
+      11: ifeq          154
+      14: aload_1
+      15: invokevirtual #88                 // Method de/mrjulsen/wires/graph/WireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      18: aload_0
+      19: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      22: invokevirtual #100                // Method net/minecraft/world/level/Level.getBlockEntity:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+      25: astore_3
+      26: aload_3
+      27: instanceof    #102                // class de/mrjulsen/wires/block/WireConnectorBlockEntity
+      30: ifeq          154
+      33: aload_3
+      34: checkcast     #102                // class de/mrjulsen/wires/block/WireConnectorBlockEntity
+      37: astore_2
+      38: aload_1
+      39: invokevirtual #88                 // Method de/mrjulsen/wires/graph/WireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      42: aload_0
+      43: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      46: invokevirtual #106                // Method net/minecraft/world/level/Level.getBlockState:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+      49: invokevirtual #112                // Method net/minecraft/world/level/block/state/BlockState.getBlock:()Lnet/minecraft/world/level/block/Block;
+      52: instanceof    #114                // class de/mrjulsen/wires/block/IWireConnector
+      55: ifeq          154
+      58: aconst_null
+      59: astore_3
+      60: aload_2
+      61: invokevirtual #118                // Method de/mrjulsen/wires/block/WireConnectorBlockEntity.getNodeId:()Lde/mrjulsen/wires/util/NodeId;
+      64: ifnull        81
+      67: aload_1
+      68: aload_2
+      69: invokevirtual #118                // Method de/mrjulsen/wires/block/WireConnectorBlockEntity.getNodeId:()Lde/mrjulsen/wires/util/NodeId;
+      72: invokevirtual #124                // Method de/mrjulsen/wires/util/NodeId.id:()Ljava/util/UUID;
+      75: invokevirtual #128                // Method de/mrjulsen/wires/graph/WireGraph.hasNode:(Ljava/util/UUID;)Z
+      78: ifne          140
+      81: aload_1
+      82: aload_0
+      83: new           #130                // class org/joml/Vector3d
+      86: dup
+      87: aload_0
+      88: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      91: invokevirtual #136                // Method net/minecraft/core/BlockPos.getX:()I
+      94: i2d
+      95: aload_0
+      96: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      99: invokevirtual #139                // Method net/minecraft/core/BlockPos.getY:()I
+     102: i2d
+     103: aload_0
+     104: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+     107: invokevirtual #142                // Method net/minecraft/core/BlockPos.getZ:()I
+     110: i2d
+     111: invokespecial #145                // Method org/joml/Vector3d."<init>":(DDD)V
+     114: invokevirtual #149                // Method de/mrjulsen/wires/graph/WireGraph.createNode:(Lde/mrjulsen/wires/graph/data/node/NodeData;Lorg/joml/Vector3d;)Lde/mrjulsen/wires/graph/WireNode;
+     117: astore_3
+     118: aload_2
+     119: new           #120                // class de/mrjulsen/wires/util/NodeId
+     122: dup
+     123: aload_3
+     124: invokevirtual #154                // Method de/mrjulsen/wires/graph/WireNode.getId:()Ljava/util/UUID;
+     127: aload_1
+     128: invokevirtual #157                // Method de/mrjulsen/wires/graph/WireGraph.getId:()Lde/mrjulsen/wires/util/GraphId;
+     131: invokespecial #160                // Method de/mrjulsen/wires/util/NodeId."<init>":(Ljava/util/UUID;Lde/mrjulsen/wires/util/GraphId;)V
+     134: invokevirtual #164                // Method de/mrjulsen/wires/block/WireConnectorBlockEntity.setNodeId:(Lde/mrjulsen/wires/util/NodeId;)V
+     137: goto          152
+     140: aload_1
+     141: aload_2
+     142: invokevirtual #118                // Method de/mrjulsen/wires/block/WireConnectorBlockEntity.getNodeId:()Lde/mrjulsen/wires/util/NodeId;
+     145: invokevirtual #124                // Method de/mrjulsen/wires/util/NodeId.id:()Ljava/util/UUID;
+     148: invokevirtual #168                // Method de/mrjulsen/wires/graph/WireGraph.getNode:(Ljava/util/UUID;)Lde/mrjulsen/wires/graph/WireNode;
+     151: astore_3
+     152: aload_3
+     153: areturn
+     154: aload_0
+     155: iconst_1
+     156: putfield      #41                 // Field pending:Z
+     159: aload_1
+     160: aload_0
+     161: new           #130                // class org/joml/Vector3d
+     164: dup
+     165: aload_0
+     166: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+     169: invokevirtual #136                // Method net/minecraft/core/BlockPos.getX:()I
+     172: i2d
+     173: aload_0
+     174: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+     177: invokevirtual #139                // Method net/minecraft/core/BlockPos.getY:()I
+     180: i2d
+     181: aload_0
+     182: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+     185: invokevirtual #142                // Method net/minecraft/core/BlockPos.getZ:()I
+     188: i2d
+     189: invokespecial #145                // Method org/joml/Vector3d."<init>":(DDD)V
+     192: invokevirtual #149                // Method de/mrjulsen/wires/graph/WireGraph.createNode:(Lde/mrjulsen/wires/graph/data/node/NodeData;Lorg/joml/Vector3d;)Lde/mrjulsen/wires/graph/WireNode;
+     195: areturn
+
+  public de.mrjulsen.wires.graph.WireNode updateWireNode(de.mrjulsen.wires.graph.WireGraph, de.mrjulsen.wires.graph.WireNode);
+    Code:
+       0: aload_0
+       1: getfield      #41                 // Field pending:Z
+       4: istore_3
+       5: aload_0
+       6: getfield      #41                 // Field pending:Z
+       9: ifeq          242
+      12: aload_0
+      13: iconst_0
+      14: putfield      #41                 // Field pending:Z
+      17: aload_1
+      18: invokevirtual #88                 // Method de/mrjulsen/wires/graph/WireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      21: aload_0
+      22: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      25: invokevirtual #100                // Method net/minecraft/world/level/Level.getBlockEntity:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+      28: astore        5
+      30: aload         5
+      32: instanceof    #102                // class de/mrjulsen/wires/block/WireConnectorBlockEntity
+      35: ifeq          242
+      38: aload         5
+      40: checkcast     #102                // class de/mrjulsen/wires/block/WireConnectorBlockEntity
+      43: astore        4
+      45: aload_1
+      46: invokevirtual #88                 // Method de/mrjulsen/wires/graph/WireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      49: aload_0
+      50: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      53: invokevirtual #106                // Method net/minecraft/world/level/Level.getBlockState:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+      56: invokevirtual #112                // Method net/minecraft/world/level/block/state/BlockState.getBlock:()Lnet/minecraft/world/level/block/Block;
+      59: instanceof    #114                // class de/mrjulsen/wires/block/IWireConnector
+      62: ifeq          242
+      65: aconst_null
+      66: astore        5
+      68: aload         4
+      70: invokevirtual #118                // Method de/mrjulsen/wires/block/WireConnectorBlockEntity.getNodeId:()Lde/mrjulsen/wires/util/NodeId;
+      73: ifnull        91
+      76: aload_1
+      77: aload         4
+      79: invokevirtual #118                // Method de/mrjulsen/wires/block/WireConnectorBlockEntity.getNodeId:()Lde/mrjulsen/wires/util/NodeId;
+      82: invokevirtual #124                // Method de/mrjulsen/wires/util/NodeId.id:()Ljava/util/UUID;
+      85: invokevirtual #128                // Method de/mrjulsen/wires/graph/WireGraph.hasNode:(Ljava/util/UUID;)Z
+      88: ifne          189
+      91: aload_1
+      92: aload_0
+      93: new           #130                // class org/joml/Vector3d
+      96: dup
+      97: aload_0
+      98: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+     101: invokevirtual #136                // Method net/minecraft/core/BlockPos.getX:()I
+     104: i2d
+     105: aload_0
+     106: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+     109: invokevirtual #139                // Method net/minecraft/core/BlockPos.getY:()I
+     112: i2d
+     113: aload_0
+     114: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+     117: invokevirtual #142                // Method net/minecraft/core/BlockPos.getZ:()I
+     120: i2d
+     121: invokespecial #145                // Method org/joml/Vector3d."<init>":(DDD)V
+     124: invokevirtual #149                // Method de/mrjulsen/wires/graph/WireGraph.createNode:(Lde/mrjulsen/wires/graph/data/node/NodeData;Lorg/joml/Vector3d;)Lde/mrjulsen/wires/graph/WireNode;
+     127: astore        5
+     129: aload         4
+     131: new           #120                // class de/mrjulsen/wires/util/NodeId
+     134: dup
+     135: aload         5
+     137: invokevirtual #154                // Method de/mrjulsen/wires/graph/WireNode.getId:()Ljava/util/UUID;
+     140: aload_1
+     141: invokevirtual #157                // Method de/mrjulsen/wires/graph/WireGraph.getId:()Lde/mrjulsen/wires/util/GraphId;
+     144: invokespecial #160                // Method de/mrjulsen/wires/util/NodeId."<init>":(Ljava/util/UUID;Lde/mrjulsen/wires/util/GraphId;)V
+     147: invokevirtual #164                // Method de/mrjulsen/wires/block/WireConnectorBlockEntity.setNodeId:(Lde/mrjulsen/wires/util/NodeId;)V
+     150: getstatic     #181                // Field de/mrjulsen/paw/config/ModCommonConfig.WIRE_CONVERTER_LOGGING:Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue;
+     153: invokevirtual #185                // Method net/neoforged/neoforge/common/ModConfigSpec$ConfigValue.get:()Ljava/lang/Object;
+     156: checkcast     #187                // class java/lang/Boolean
+     159: invokevirtual #190                // Method java/lang/Boolean.booleanValue:()Z
+     162: ifeq          239
+     165: getstatic     #196                // Field de/mrjulsen/paw/PantographsAndWires.LOGGER:Lorg/slf4j/Logger;
+     168: aload         5
+     170: invokevirtual #154                // Method de/mrjulsen/wires/graph/WireNode.getId:()Ljava/util/UUID;
+     173: invokestatic  #202                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+     176: invokedynamic #214,  0            // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+     181: invokeinterface #220,  2          // InterfaceMethod org/slf4j/Logger.info:(Ljava/lang/String;)V
+     186: goto          239
+     189: aload_1
+     190: aload         4
+     192: invokevirtual #118                // Method de/mrjulsen/wires/block/WireConnectorBlockEntity.getNodeId:()Lde/mrjulsen/wires/util/NodeId;
+     195: invokevirtual #124                // Method de/mrjulsen/wires/util/NodeId.id:()Ljava/util/UUID;
+     198: invokevirtual #168                // Method de/mrjulsen/wires/graph/WireGraph.getNode:(Ljava/util/UUID;)Lde/mrjulsen/wires/graph/WireNode;
+     201: astore        5
+     203: getstatic     #181                // Field de/mrjulsen/paw/config/ModCommonConfig.WIRE_CONVERTER_LOGGING:Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue;
+     206: invokevirtual #185                // Method net/neoforged/neoforge/common/ModConfigSpec$ConfigValue.get:()Ljava/lang/Object;
+     209: checkcast     #187                // class java/lang/Boolean
+     212: invokevirtual #190                // Method java/lang/Boolean.booleanValue:()Z
+     215: ifeq          239
+     218: getstatic     #196                // Field de/mrjulsen/paw/PantographsAndWires.LOGGER:Lorg/slf4j/Logger;
+     221: aload         5
+     223: invokevirtual #154                // Method de/mrjulsen/wires/graph/WireNode.getId:()Ljava/util/UUID;
+     226: invokestatic  #202                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+     229: invokedynamic #223,  0            // InvokeDynamic #1:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+     234: invokeinterface #220,  2          // InterfaceMethod org/slf4j/Logger.info:(Ljava/lang/String;)V
+     239: aload         5
+     241: areturn
+     242: getstatic     #181                // Field de/mrjulsen/paw/config/ModCommonConfig.WIRE_CONVERTER_LOGGING:Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue;
+     245: invokevirtual #185                // Method net/neoforged/neoforge/common/ModConfigSpec$ConfigValue.get:()Ljava/lang/Object;
+     248: checkcast     #187                // class java/lang/Boolean
+     251: invokevirtual #190                // Method java/lang/Boolean.booleanValue:()Z
+     254: ifeq          267
+     257: getstatic     #196                // Field de/mrjulsen/paw/PantographsAndWires.LOGGER:Lorg/slf4j/Logger;
+     260: ldc           #225                // String [GRAPH CONVERTER/UPDATER]        - COULD NOT REPLACE DUMMY NODE! This is not intended, but could occur if there is no longer a valid connector block at the corresponding location.
+     262: invokeinterface #220,  2          // InterfaceMethod org/slf4j/Logger.info:(Ljava/lang/String;)V
+     267: iload_3
+     268: ifeq          275
+     271: aload_2
+     272: goto          276
+     275: aconst_null
+     276: areturn
+
+  public java.util.Optional<de.mrjulsen.wires.graph.data.provider.ConnectorDataProvider> getConnectorCustomData(de.mrjulsen.wires.graph.IWireGraph, de.mrjulsen.wires.item.CustomData, int);
+    Code:
+       0: aload_0
+       1: getfield      #41                 // Field pending:Z
+       4: ifne          98
+       7: aload_1
+       8: invokeinterface #235,  1          // InterfaceMethod de/mrjulsen/wires/graph/IWireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      13: aload_0
+      14: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      17: invokevirtual #96                 // Method net/minecraft/world/level/Level.isLoaded:(Lnet/minecraft/core/BlockPos;)Z
+      20: ifeq          98
+      23: aload_1
+      24: invokeinterface #235,  1          // InterfaceMethod de/mrjulsen/wires/graph/IWireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      29: aload_0
+      30: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      33: invokestatic  #241                // Method de/mrjulsen/wires/util/SafeChunkUtils.getSafeBE:(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+      36: instanceof    #102                // class de/mrjulsen/wires/block/WireConnectorBlockEntity
+      39: ifeq          98
+      42: aload_1
+      43: invokeinterface #235,  1          // InterfaceMethod de/mrjulsen/wires/graph/IWireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      48: aload_0
+      49: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      52: invokestatic  #244                // Method de/mrjulsen/wires/util/SafeChunkUtils.getBlockState:(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+      55: invokevirtual #112                // Method net/minecraft/world/level/block/state/BlockState.getBlock:()Lnet/minecraft/world/level/block/Block;
+      58: astore        5
+      60: aload         5
+      62: instanceof    #114                // class de/mrjulsen/wires/block/IWireConnector
+      65: ifeq          98
+      68: aload         5
+      70: checkcast     #114                // class de/mrjulsen/wires/block/IWireConnector
+      73: astore        4
+      75: aload         4
+      77: aload_1
+      78: invokeinterface #235,  1          // InterfaceMethod de/mrjulsen/wires/graph/IWireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      83: aload_0
+      84: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      87: aload_2
+      88: iload_3
+      89: invokeinterface #248,  5          // InterfaceMethod de/mrjulsen/wires/block/IWireConnector.getConnectorData:(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lde/mrjulsen/wires/item/CustomData;I)Lde/mrjulsen/wires/graph/data/provider/ConnectorDataProvider;
+      94: invokestatic  #254                // Method java/util/Optional.of:(Ljava/lang/Object;)Ljava/util/Optional;
+      97: areturn
+      98: invokestatic  #258                // Method java/util/Optional.empty:()Ljava/util/Optional;
+     101: areturn
+
+  public org.joml.Vector3d toWorldPos(de.mrjulsen.wires.graph.IWireGraph);
+    Code:
+       0: new           #130                // class org/joml/Vector3d
+       3: dup
+       4: aload_0
+       5: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+       8: invokevirtual #136                // Method net/minecraft/core/BlockPos.getX:()I
+      11: i2d
+      12: aload_0
+      13: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      16: invokevirtual #139                // Method net/minecraft/core/BlockPos.getY:()I
+      19: i2d
+      20: aload_0
+      21: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      24: invokevirtual #142                // Method net/minecraft/core/BlockPos.getZ:()I
+      27: i2d
+      28: invokespecial #145                // Method org/joml/Vector3d."<init>":(DDD)V
+      31: astore_2
+      32: aload_2
+      33: areturn
+
+  public boolean validate(de.mrjulsen.wires.graph.WireGraph, de.mrjulsen.paw.components.WireConnectionDataComponent, int);
+    Code:
+       0: aload_0
+       1: getfield      #41                 // Field pending:Z
+       4: ifne          38
+       7: aload_1
+       8: invokevirtual #88                 // Method de/mrjulsen/wires/graph/WireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      11: aload_0
+      12: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      15: invokevirtual #96                 // Method net/minecraft/world/level/Level.isLoaded:(Lnet/minecraft/core/BlockPos;)Z
+      18: ifeq          38
+      21: aload_1
+      22: invokevirtual #88                 // Method de/mrjulsen/wires/graph/WireGraph.getLevel:()Lnet/minecraft/world/level/Level;
+      25: aload_0
+      26: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      29: invokevirtual #100                // Method net/minecraft/world/level/Level.getBlockEntity:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+      32: instanceof    #102                // class de/mrjulsen/wires/block/WireConnectorBlockEntity
+      35: ifeq          42
+      38: iconst_1
+      39: goto          43
+      42: iconst_0
+      43: ireturn
+
+  public boolean equals(java.lang.Object);
+    Code:
+       0: aload_1
+       1: instanceof    #2                  // class de/mrjulsen/wires/graph/data/node/BlockConnectorNodeData
+       4: ifeq          24
+       7: aload_1
+       8: checkcast     #2                  // class de/mrjulsen/wires/graph/data/node/BlockConnectorNodeData
+      11: astore_2
+      12: aload_0
+      13: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      16: aload_2
+      17: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      20: invokevirtual #276                // Method net/minecraft/core/BlockPos.equals:(Ljava/lang/Object;)Z
+      23: ireturn
+      24: iconst_0
+      25: ireturn
+
+  public int hashCode();
+    Code:
+       0: iconst_1
+       1: anewarray     #281                // class java/lang/Object
+       4: dup
+       5: iconst_0
+       6: aload_0
+       7: invokevirtual #90                 // Method getPos:()Lnet/minecraft/core/BlockPos;
+      10: aastore
+      11: invokestatic  #287                // Method java/util/Objects.hash:([Ljava/lang/Object;)I
+      14: ireturn
+}

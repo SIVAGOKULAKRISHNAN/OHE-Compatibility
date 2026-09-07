@@ -1,0 +1,152 @@
+Compiled from "CantileverConnectorDataProvider.java"
+public class de.mrjulsen.wires.graph.data.provider.CantileverConnectorDataProvider extends de.mrjulsen.wires.graph.data.provider.BasicConnectorDataProvider {
+  public static final java.lang.String NBT_TENSION_ATTACH_POINT;
+
+  protected org.joml.Vector3d tensionWireAttachPoint;
+
+  public de.mrjulsen.wires.graph.data.provider.CantileverConnectorDataProvider(org.joml.Vector3f, org.joml.Vector3f);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokespecial #18                 // Method de/mrjulsen/wires/graph/data/provider/BasicConnectorDataProvider."<init>":(Lorg/joml/Vector3f;)V
+       5: aload_0
+       6: new           #20                 // class org/joml/Vector3d
+       9: dup
+      10: aload_2
+      11: invokevirtual #26                 // Method org/joml/Vector3f.x:()F
+      14: f2d
+      15: aload_2
+      16: invokevirtual #29                 // Method org/joml/Vector3f.y:()F
+      19: f2d
+      20: aload_2
+      21: invokevirtual #32                 // Method org/joml/Vector3f.z:()F
+      24: f2d
+      25: invokespecial #35                 // Method org/joml/Vector3d."<init>":(DDD)V
+      28: putfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+      31: return
+
+  public de.mrjulsen.wires.graph.data.provider.CantileverConnectorDataProvider(org.joml.Vector3d, org.joml.Vector3d);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokespecial #44                 // Method de/mrjulsen/wires/graph/data/provider/BasicConnectorDataProvider."<init>":(Lorg/joml/Vector3d;)V
+       5: aload_0
+       6: aload_2
+       7: putfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+      10: return
+
+  public net.minecraft.nbt.CompoundTag serializeNbt();
+    Code:
+       0: aload_0
+       1: invokespecial #48                 // Method de/mrjulsen/wires/graph/data/provider/BasicConnectorDataProvider.serializeNbt:()Lnet/minecraft/nbt/CompoundTag;
+       4: astore_1
+       5: aload_1
+       6: ldc           #9                  // String TensionWireAttachPoint
+       8: aload_0
+       9: getfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+      12: invokestatic  #54                 // Method de/mrjulsen/wires/util/Utils.putNbtVector3d:(Lnet/minecraft/nbt/CompoundTag;Ljava/lang/String;Lorg/joml/Vector3d;)V
+      15: aload_1
+      16: areturn
+
+  public void deserializeNbt(net.minecraft.nbt.CompoundTag);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokespecial #60                 // Method de/mrjulsen/wires/graph/data/provider/BasicConnectorDataProvider.deserializeNbt:(Lnet/minecraft/nbt/CompoundTag;)V
+       5: aload_0
+       6: aload_1
+       7: ldc           #9                  // String TensionWireAttachPoint
+       9: invokestatic  #64                 // Method de/mrjulsen/wires/util/Utils.getNbtVector3d:(Lnet/minecraft/nbt/CompoundTag;Ljava/lang/String;)Lorg/joml/Vector3d;
+      12: putfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+      15: return
+
+  public de.mrjulsen.wires.graph.registry.DLRegistryObject<de.mrjulsen.wires.graph.data.provider.ConnectorDataProvider> getRegistryType();
+    Code:
+       0: getstatic     #73                 // Field de/mrjulsen/wires/WiresApi.CANTILEVER_WIRE_CONNECTOR:Lde/mrjulsen/wires/graph/registry/DLRegistryObject;
+       3: checkcast     #75                 // class de/mrjulsen/wires/graph/registry/DLRegistryObject
+       6: areturn
+
+  public org.joml.Vector3d getTensionWireAttachOffset();
+    Code:
+       0: new           #20                 // class org/joml/Vector3d
+       3: dup
+       4: aload_0
+       5: getfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+       8: invokespecial #80                 // Method org/joml/Vector3d."<init>":(Lorg/joml/Vector3dc;)V
+      11: areturn
+
+  public boolean equals(java.lang.Object);
+    Code:
+       0: aload_1
+       1: instanceof    #2                  // class de/mrjulsen/wires/graph/data/provider/CantileverConnectorDataProvider
+       4: ifeq          40
+       7: aload_1
+       8: checkcast     #2                  // class de/mrjulsen/wires/graph/data/provider/CantileverConnectorDataProvider
+      11: astore_2
+      12: aload_0
+      13: aload_2
+      14: invokespecial #85                 // Method de/mrjulsen/wires/graph/data/provider/BasicConnectorDataProvider.equals:(Ljava/lang/Object;)Z
+      17: ifeq          38
+      20: aload_0
+      21: getfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+      24: aload_2
+      25: getfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+      28: invokevirtual #86                 // Method org/joml/Vector3d.equals:(Ljava/lang/Object;)Z
+      31: ifeq          38
+      34: iconst_1
+      35: goto          39
+      38: iconst_0
+      39: ireturn
+      40: iconst_0
+      41: ireturn
+
+  public java.lang.String toString();
+    Code:
+       0: ldc           #92                 // String %s, %s, %s - %s, %s, %s
+       2: bipush        6
+       4: anewarray     #94                 // class java/lang/Object
+       7: dup
+       8: iconst_0
+       9: aload_0
+      10: getfield      #97                 // Field attachOffset:Lorg/joml/Vector3d;
+      13: getfield      #100                // Field org/joml/Vector3d.x:D
+      16: invokestatic  #106                // Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+      19: aastore
+      20: dup
+      21: iconst_1
+      22: aload_0
+      23: getfield      #97                 // Field attachOffset:Lorg/joml/Vector3d;
+      26: getfield      #108                // Field org/joml/Vector3d.y:D
+      29: invokestatic  #106                // Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+      32: aastore
+      33: dup
+      34: iconst_2
+      35: aload_0
+      36: getfield      #97                 // Field attachOffset:Lorg/joml/Vector3d;
+      39: getfield      #110                // Field org/joml/Vector3d.z:D
+      42: invokestatic  #106                // Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+      45: aastore
+      46: dup
+      47: iconst_3
+      48: aload_0
+      49: getfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+      52: getfield      #100                // Field org/joml/Vector3d.x:D
+      55: invokestatic  #106                // Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+      58: aastore
+      59: dup
+      60: iconst_4
+      61: aload_0
+      62: getfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+      65: getfield      #108                // Field org/joml/Vector3d.y:D
+      68: invokestatic  #106                // Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+      71: aastore
+      72: dup
+      73: iconst_5
+      74: aload_0
+      75: getfield      #37                 // Field tensionWireAttachPoint:Lorg/joml/Vector3d;
+      78: getfield      #110                // Field org/joml/Vector3d.z:D
+      81: invokestatic  #106                // Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+      84: aastore
+      85: invokestatic  #116                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      88: areturn
+}

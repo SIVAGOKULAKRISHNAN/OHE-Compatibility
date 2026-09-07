@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,option_two=false": {
+      "model": "ohecompat:block/ohe_feeder_bridge_option1",
+      "y": 0
+    },
+    "facing=north,option_two=true": {
+      "model": "ohecompat:block/ohe_feeder_bridge_option2",
+      "y": 0
+    },
+    "facing=east,option_two=false": {
+      "model": "ohecompat:block/ohe_feeder_bridge_option1",
+      "y": 90
+    },
+    "facing=east,option_two=true": {
+      "model": "ohecompat:block/ohe_feeder_bridge_option2",
+      "y": 90
+    },
+    "facing=south,option_two=false": {
+      "model": "ohecompat:block/ohe_feeder_bridge_option1",
+      "y": 180
+    },
+    "facing=south,option_two=true": {
+      "model": "ohecompat:block/ohe_feeder_bridge_option2",
+      "y": 180
+    },
+    "facing=west,option_two=false": {
+      "model": "ohecompat:block/ohe_feeder_bridge_option1",
+      "y": 270
+    },
+    "facing=west,option_two=true": {
+      "model": "ohecompat:block/ohe_feeder_bridge_option2",
+      "y": 270
+    }
+  }
+}

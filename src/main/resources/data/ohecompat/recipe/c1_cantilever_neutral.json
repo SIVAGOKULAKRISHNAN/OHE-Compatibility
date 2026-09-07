@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "TNT",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "pantographsandwires:insulator_green"
+    },
+    "T": {
+      "item": "pantographsandwires:tensioning_device"
+    },
+    "N": {
+      "item": "electroenergetics:glass_insulator_segment"
+    }
+  },
+  "result": {
+    "id": "ohecompat:c1_cantilever_neutral",
+    "count": 1
+  }
+}

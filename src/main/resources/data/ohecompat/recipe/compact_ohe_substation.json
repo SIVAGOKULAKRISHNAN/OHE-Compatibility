@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CPC",
+    "TOT",
+    "CPC"
+  ],
+  "key": {
+    "C": {
+      "item": "electroenergetics:concrete_pole"
+    },
+    "P": {
+      "item": "pantographsandwires:power_line_bracket"
+    },
+    "T": {
+      "item": "electroenergetics:transformer"
+    },
+    "O": {
+      "item": "electroenergetics:transformer_core_lamination"
+    }
+  },
+  "result": {
+    "id": "ohecompat:compact_ohe_substation",
+    "count": 1
+  }
+}

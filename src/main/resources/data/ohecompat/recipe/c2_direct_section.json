@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "NIN",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "pantographsandwires:insulator_green"
+    },
+    "N": {
+      "item": "electroenergetics:glass_insulator_segment"
+    }
+  },
+  "result": {
+    "id": "ohecompat:c2_direct_section",
+    "count": 1
+  }
+}

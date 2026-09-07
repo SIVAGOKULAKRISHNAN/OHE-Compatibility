@@ -79,7 +79,7 @@ public final class ModBlocks {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.george_vi.electroenergetics.content.transmission_distribution.hv_switch.HVSwitchBlockEntity>> TSS_FEEDER_SWITCH_BE =
             BLOCK_ENTITIES.register("tss_feeder_switch",
-                    () -> BlockEntityType.Builder.of((pos, state) -> new com.george_vi.electroenergetics.content.transmission_distribution.hv_switch.HVSwitchBlockEntity(TSS_FEEDER_SWITCH_BE.get(), pos, state),
+                    () -> BlockEntityType.Builder.of(ModBlocks::createTssFeederSwitchBlockEntity,
                             TSS_FEEDER_SWITCH.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OheSectionBlockEntity>> OHE_SECTION_BE =
@@ -150,4 +150,8 @@ public final class ModBlocks {
     }
 
     private ModBlocks() {}
+    private static com.george_vi.electroenergetics.content.transmission_distribution.hv_switch.HVSwitchBlockEntity createTssFeederSwitchBlockEntity(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        return new com.george_vi.electroenergetics.content.transmission_distribution.hv_switch.HVSwitchBlockEntity(TSS_FEEDER_SWITCH_BE.get(), pos, state);
+    }
+
 }

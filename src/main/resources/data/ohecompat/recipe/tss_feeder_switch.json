@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IPI",
+    "CHC",
+    "IPI"
+  ],
+  "key": {
+    "I": {"item": "pantographsandwires:iron_strip"},
+    "P": {"item": "pantographsandwires:power_line_bracket"},
+    "C": {"item": "electroenergetics:connector"},
+    "H": {"item": "electroenergetics:high_voltage_switch"}
+  },
+  "result": {
+    "id": "ohecompat:tss_feeder_switch",
+    "count": 1
+  }
+}

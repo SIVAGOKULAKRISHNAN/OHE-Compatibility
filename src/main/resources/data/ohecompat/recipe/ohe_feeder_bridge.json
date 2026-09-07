@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IPI",
+    "CBC",
+    " I "
+  ],
+  "key": {
+    "I": {"item": "pantographsandwires:iron_strip"},
+    "P": {"item": "pantographsandwires:power_line_bracket"},
+    "C": {"item": "electroenergetics:connector"},
+    "B": {"item": "pantographsandwires:insulator_green"}
+  },
+  "result": {
+    "id": "ohecompat:ohe_feeder_bridge",
+    "count": 1
+  }
+}

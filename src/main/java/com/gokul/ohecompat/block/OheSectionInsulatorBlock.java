@@ -10,9 +10,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import java.util.List;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -47,19 +44,8 @@ public class OheSectionInsulatorBlock extends HorizontalDirectionalBlock {
     @Override
     public BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext context) {
         Direction facing = context.getHorizontalDirection();
-        int mountSize = 2;
-        BlockPos supportPos = context.getClickedPos().below();
-        if (context.getLevel().isLoaded(supportPos)) {
-            try {
-                VoxelShape shape = context.getLevel().getBlockState(supportPos).getShape(context.getLevel(), supportPos);
-                net.minecraft.world.phys.AABB box = shape.bounds();
-                double width = Math.max(box.getXsize(), box.getZsize()) * 16.0D;
-                mountSize = width <= 5.0D ? 1 : (width <= 10.0D ? 2 : 3);
-            } catch (Exception ignored) {
-                mountSize = 2;
-            }
-        }
-        return defaultBlockState().setValue(FACING, facing).setValue(MOUNT_SIZE, mountSize);
+        return defaultBlockState().setValue(FACING, facing)
+                .setValue(MOUNT_SIZE, getMountSize(context.getLevel(), context.getClickedPos().below()));
     }
 
     public static int getMountSize(Level level, BlockPos supportPos) {
@@ -76,11 +62,9 @@ public class OheSectionInsulatorBlock extends HorizontalDirectionalBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
-                                          Player player, net.minecraft.world.InteractionHand hand, BlockHitResult hit) {
+                                               Player player, net.minecraft.world.InteractionHand hand, BlockHitResult hit) {
         if (stack.is(AllItems.WRENCH.get())) {
             if (!level.isClientSide) {
-                // This insulator belongs to the SH Breaker assembly. Find the
-                // bridge one or two blocks above and destroy the whole assembly.
                 BlockPos bridge = null;
                 if (level.getBlockState(pos.above()).is(com.gokul.ohecompat.registry.ModBlocks.OHE_POWER_BRIDGE.get()))
                     bridge = pos.above();
@@ -99,9 +83,8 @@ public class OheSectionInsulatorBlock extends HorizontalDirectionalBlock {
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        // The insulator blocks are physical parts of the OHE Power Bridge
-        // assembly. Breaking either one must remove the complete assembly and
-        // must never leave the bridge or the other insulator floating.
+        // Internal assembly part: destroy the bridge with drops so exactly one
+        // OHE Power Bridge item is produced, then remove this insulator too.
         if (!level.isClientSide) {
             BlockPos bridge = null;
             if (level.getBlockState(pos.above()).is(com.gokul.ohecompat.registry.ModBlocks.OHE_POWER_BRIDGE.get())) {
@@ -109,24 +92,11 @@ public class OheSectionInsulatorBlock extends HorizontalDirectionalBlock {
             } else if (level.getBlockState(pos.above(2)).is(com.gokul.ohecompat.registry.ModBlocks.OHE_POWER_BRIDGE.get())) {
                 bridge = pos.above(2);
             }
-
             if (bridge != null) {
-                // The bridge's playerWillDestroy removes both insulator blocks
-                // without generating separate insulator drops; destroy the
-                // bridge with drops so exactly one OHE Power Bridge item is
-                // produced for the complete assembly.
                 level.destroyBlock(bridge, true, player);
             }
         }
         return super.playerWillDestroy(level, pos, state, player);
-    }
-
-    /** The insulator is an internal part of the 3-block bridge assembly.
-     * It must never produce its own item drop; breaking any part of the
-     * assembly produces the single OHE Power Bridge item instead. */
-    @Override
-    public List<ItemStack> getDrops(BlockState state, ServerLevel level, BlockPos pos, BlockEntity blockEntity) {
-        return List.of();
     }
 
     @Override
@@ -140,5 +110,4 @@ public class OheSectionInsulatorBlock extends HorizontalDirectionalBlock {
                 Block.box(4, 13, 4, 12, 15, 12)
         );
     }
-
 }

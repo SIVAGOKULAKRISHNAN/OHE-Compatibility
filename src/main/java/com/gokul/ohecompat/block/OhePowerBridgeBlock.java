@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ import java.util.Map;
 public final class OhePowerBridgeBlock extends ConnectorBlock
         implements IWireConnector, ICatenaryWireConnector, net.minecraft.world.level.block.EntityBlock {
 
-    public static final net.minecraft.core.DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public OhePowerBridgeBlock(Properties properties) {
         super(properties);
@@ -123,8 +124,7 @@ public final class OhePowerBridgeBlock extends ConnectorBlock
     }
 
     /**
-     * The normal block placement happens at the clicked support position.
-     * Convert that temporary placement into the permanent three-block assembly:
+     * Convert the temporary placement into the permanent three-block assembly:
      * bottom insulator at the support, bridge two blocks above it, and the
      * upper insulator between them. The bridge orientation is preserved.
      */
@@ -149,9 +149,6 @@ public final class OhePowerBridgeBlock extends ConnectorBlock
                 .setValue(OheSectionInsulatorBlock.SEPARATED, true)
                 .setValue(OheSectionInsulatorBlock.MOUNT_SIZE, mountSize);
 
-        // The temporary CEE node at pos is replaced by the bottom insulator.
-        // The permanent bridge gets a fresh native P&W/CEE block entity at its
-        // actual three-block assembly position.
         level.setBlock(bridgePos, bridgeState, Block.UPDATE_ALL);
         level.setBlock(topInsulatorPos, topInsulator, Block.UPDATE_ALL);
         level.setBlock(pos, bottomInsulator, Block.UPDATE_ALL);

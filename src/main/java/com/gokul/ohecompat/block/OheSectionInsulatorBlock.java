@@ -1,7 +1,7 @@
 package com.gokul.ohecompat.block;
 
 import com.mojang.serialization.MapCodec;
-
+import com.gokul.ohecompat.registry.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import com.simibubi.create.AllItems;
@@ -20,11 +20,11 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
+/** Visible insulator part of the three-block OHE Power Bridge assembly. */
 public class OheSectionInsulatorBlock extends HorizontalDirectionalBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty SEPARATED = BooleanProperty.create("separated");
     public static final IntegerProperty MOUNT_SIZE = IntegerProperty.create("mount_size", 1, 3);
-
     public static final MapCodec<OheSectionInsulatorBlock> CODEC = simpleCodec(OheSectionInsulatorBlock::new);
 
     @Override
@@ -58,24 +58,33 @@ public class OheSectionInsulatorBlock extends HorizontalDirectionalBlock {
         }
     }
 
+    private static BlockPos findBridge(Level level, BlockPos pos) {
+        for (int i = 1; i <= 2; i++) {
+            BlockPos candidate = pos.above(i);
+            if (level.getBlockState(candidate).is(ModBlocks.OHE_POWER_BRIDGE.get())) return candidate;
+        }
+        return null;
+    }
+
+    private static void breakAssembly(Level level, BlockPos pos) {
+        BlockPos bridge = findBridge(level, pos);
+        if (bridge == null) {
+            level.setBlock(pos, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            return;
+        }
+        BlockPos lower = bridge.below(2);
+        BlockPos upper = bridge.below();
+        level.setBlock(lower, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        level.setBlock(upper, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        level.setBlock(bridge, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        Block.popResource(level, pos, new ItemStack(ModBlocks.OHE_POWER_BRIDGE.get()));
+    }
+
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                           Player player, net.minecraft.world.InteractionHand hand, BlockHitResult hit) {
         if (stack.is(AllItems.WRENCH.get())) {
-            if (!level.isClientSide) {
-                // This insulator belongs to the SH Breaker assembly. Find the
-                // bridge one or two blocks above and destroy the whole assembly.
-                BlockPos bridge = null;
-                if (level.getBlockState(pos.above()).is(com.gokul.ohecompat.registry.ModBlocks.OHE_POWER_BRIDGE.get()))
-                    bridge = pos.above();
-                else if (level.getBlockState(pos.above(2)).is(com.gokul.ohecompat.registry.ModBlocks.OHE_POWER_BRIDGE.get()))
-                    bridge = pos.above(2);
-                if (bridge != null) {
-                    level.destroyBlock(bridge, true, player);
-                } else {
-                    level.setBlock(pos, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-                }
-            }
+            if (!level.isClientSide) breakAssembly(level, pos);
             return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
@@ -83,26 +92,8 @@ public class OheSectionInsulatorBlock extends HorizontalDirectionalBlock {
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        // The insulator blocks are physical parts of the OHE Power Bridge
-        // assembly. Breaking either one must remove the complete assembly and
-        // must never leave the bridge or the other insulator floating.
-        if (!level.isClientSide) {
-            BlockPos bridge = null;
-            if (level.getBlockState(pos.above()).is(com.gokul.ohecompat.registry.ModBlocks.OHE_POWER_BRIDGE.get())) {
-                bridge = pos.above();
-            } else if (level.getBlockState(pos.above(2)).is(com.gokul.ohecompat.registry.ModBlocks.OHE_POWER_BRIDGE.get())) {
-                bridge = pos.above(2);
-            }
-
-            if (bridge != null) {
-                // The bridge's playerWillDestroy removes both insulator blocks
-                // without generating separate insulator drops; destroy the
-                // bridge with drops so exactly one OHE Power Bridge item is
-                // produced for the complete assembly.
-                level.destroyBlock(bridge, true, player);
-            }
-        }
-        return super.playerWillDestroy(level, pos, state, player);
+        if (!level.isClientSide) breakAssembly(level, pos);
+        return state;
     }
 
     @Override
@@ -116,5 +107,4 @@ public class OheSectionInsulatorBlock extends HorizontalDirectionalBlock {
                 Block.box(4, 13, 4, 12, 15, 12)
         );
     }
-
 }

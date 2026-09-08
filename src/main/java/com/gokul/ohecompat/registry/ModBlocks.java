@@ -36,6 +36,10 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> OHE_SWITCH_ASSEMBLY = BLOCKS.register("ohe_switch_assembly",
             () -> new OheSwitchAssemblyBlock(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion()));
 
+    /**
+     * Universal TSS feeder isolator. Its physical electrical terminals are P&W
+     * Energy Wire terminals; CEE is connected by the compatibility shadow layer.
+     */
     public static final DeferredBlock<Block> TSS_FEEDER_SWITCH = BLOCKS.register("tss_feeder_switch",
             () -> new TssFeederSwitchBlock(BlockBehaviour.Properties.of().strength(2.5f).noOcclusion()));
 
@@ -77,9 +81,10 @@ public final class ModBlocks {
                     () -> BlockEntityType.Builder.of((pos, state) -> createPawSwitchBlockEntity(pos, state),
                             OHE_SWITCH_ASSEMBLY.get()).build(null));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.george_vi.electroenergetics.content.transmission_distribution.hv_switch.HVSwitchBlockEntity>> TSS_FEEDER_SWITCH_BE =
+    /** P&W WireConnectorBlockEntity required by FeederWireItem. */
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PawConnectorBlockEntity>> TSS_FEEDER_SWITCH_BE =
             BLOCK_ENTITIES.register("tss_feeder_switch",
-                    () -> BlockEntityType.Builder.of(ModBlocks::createTssFeederSwitchBlockEntity,
+                    () -> BlockEntityType.Builder.of(ModBlocks::createPawTssFeederSwitchBlockEntity,
                             TSS_FEEDER_SWITCH.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OheSectionBlockEntity>> OHE_SECTION_BE =
@@ -110,6 +115,10 @@ public final class ModBlocks {
         return new PawConnectorBlockEntity(OHE_SWITCH_BE.get(), pos, state);
     }
 
+    public static PawConnectorBlockEntity createPawTssFeederSwitchBlockEntity(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        return new PawConnectorBlockEntity(TSS_FEEDER_SWITCH_BE.get(), pos, state);
+    }
+
     // Factory methods keep the DeferredHolder self-reference out of the field initializer.
     // The factory is invoked only after the registry has been constructed.
     public static OheSectionBlockEntity createOheSectionBlockEntity(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
@@ -130,8 +139,6 @@ public final class ModBlocks {
 
     public static void register(IEventBus bus) {
         // Register every DeferredItem BEFORE attaching the DeferredRegister to the event bus.
-        // Registering the bus first caused the compatibility blocks to exist as blocks but
-        // not receive BlockItem entries, so they were invisible in the creative inventory/search.
         item("ohe_power_bridge", OHE_POWER_BRIDGE);
         item("ohe_section_insulator", OHE_SECTION_INSULATOR);
         item("ohe_feeder_bridge", OHE_FEEDER_BRIDGE);
@@ -150,8 +157,4 @@ public final class ModBlocks {
     }
 
     private ModBlocks() {}
-    private static com.george_vi.electroenergetics.content.transmission_distribution.hv_switch.HVSwitchBlockEntity createTssFeederSwitchBlockEntity(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
-        return new com.george_vi.electroenergetics.content.transmission_distribution.hv_switch.HVSwitchBlockEntity(TSS_FEEDER_SWITCH_BE.get(), pos, state);
-    }
-
 }

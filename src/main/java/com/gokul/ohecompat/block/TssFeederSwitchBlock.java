@@ -1,6 +1,7 @@
 package com.gokul.ohecompat.block;
 
 import com.gokul.ohecompat.integration.PawNativeConnector;
+import com.gokul.ohecompat.integration.PawOhePlacement;
 import com.gokul.ohecompat.registry.ModBlocks;
 import com.mojang.serialization.MapCodec;
 import de.mrjulsen.wires.block.IWireConnector;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.InteractionHand;
@@ -26,26 +28,24 @@ import net.minecraft.world.InteractionHand;
 /**
  * Universal P&W-side traction-substation feeder isolator.
  *
- * P&W owns the physical Energy Wire connection. The compatibility layer mirrors
- * those exact P&W endpoints into CEE's electrical simulation, so the same TSS
- * switch can sit between CEE equipment, a P&W feeder, or the C/D compatibility
- * assemblies without requiring a second CEE-only block.
- *
- * It is an isolator/disconnector, not a circuit breaker. Empty-hand interaction
- * toggles the physical open/closed state; the compatibility manager applies the
- * corresponding electrical gap/continuity to the CEE shadow network.
+ * The physical conductor is always P&W Energy Wire. The switch is an OHE-line
+ * component, never a free-standing ground device. HEIGHT is a visual mast option
+ * from 3 through 7 blocks; the top switch remains at the placed block while the
+ * support mast extends downward into the selected P&W pole.
  */
 public final class TssFeederSwitchBlock extends HorizontalDirectionalBlock
         implements EntityBlock, IWireConnector {
     public static final MapCodec<TssFeederSwitchBlock> CODEC = simpleCodec(TssFeederSwitchBlock::new);
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty OPEN = BooleanProperty.create("open");
+    public static final IntegerProperty HEIGHT = IntegerProperty.create("height", 3, 7);
 
     public TssFeederSwitchBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
-                .setValue(OPEN, true));
+                .setValue(OPEN, true)
+                .setValue(HEIGHT, 3));
     }
 
     @Override
@@ -55,17 +55,21 @@ public final class TssFeederSwitchBlock extends HorizontalDirectionalBlock
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OPEN);
+        builder.add(FACING, OPEN, HEIGHT);
     }
 
     @Override
     public BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext context) {
+        BlockPos pos = context.getClickedPos();
+        if (!PawOhePlacement.onPawPole(context.getLevel(), pos.below())) return null;
+        if (!PawOhePlacement.onEnergyWire(context.getLevel(), pos)
+                && !PawOhePlacement.onCatenary(context.getLevel(), pos)) return null;
         return defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection())
-                .setValue(OPEN, true);
+                .setValue(OPEN, true)
+                .setValue(HEIGHT, 3);
     }
 
-    /** Two P&W Energy Wire terminals, opposite each other. */
     public static Vec3 endpoint(Direction facing, int index) {
         boolean first = index == 0;
         return switch (facing) {
@@ -103,7 +107,12 @@ public final class TssFeederSwitchBlock extends HorizontalDirectionalBlock
                                               BlockHitResult hit) {
         if (stack.isEmpty()) {
             if (!level.isClientSide) {
-                level.setBlock(pos, state.cycle(OPEN), Block.UPDATE_ALL);
+                if (player.isShiftKeyDown()) {
+                    int next = state.getValue(HEIGHT) >= 7 ? 3 : state.getValue(HEIGHT) + 1;
+                    level.setBlock(pos, state.setValue(HEIGHT, next), Block.UPDATE_ALL);
+                } else {
+                    level.setBlock(pos, state.cycle(OPEN), Block.UPDATE_ALL);
+                }
             }
             return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }

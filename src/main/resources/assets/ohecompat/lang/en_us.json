@@ -13,5 +13,6 @@
   "tooltip.ohecompat.ohe_feeder_bridge": "P&W Energy Wire terminal; empty-hand right-click toggles feeder construction option",
   "tooltip.ohecompat.ohe_switch_assembly": "Wrench: operate current mode. Empty hand: OHE section / feeder switch mode.",
   "block.ohecompat.tss_feeder_switch": "TSS Feeder Switch / Isolator",
-  "item.ohecompat.tss_feeder_switch": "TSS Feeder Switch / Isolator"
+  "item.ohecompat.tss_feeder_switch": "TSS Feeder Switch / Isolator",
+  "tooltip.ohecompat.tss_feeder_switch": "P&W-native Energy Wire isolator; empty hand toggles open / closed"
 }

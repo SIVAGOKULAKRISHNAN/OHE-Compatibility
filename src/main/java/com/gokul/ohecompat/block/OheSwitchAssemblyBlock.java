@@ -2,6 +2,7 @@ package com.gokul.ohecompat.block;
 
 import com.gokul.ohecompat.integration.CeeSwitchAdapter;
 import com.gokul.ohecompat.integration.PawNativeConnector;
+import com.gokul.ohecompat.integration.PawOhePlacement;
 import com.gokul.ohecompat.registry.ModBlocks;
 import com.mojang.serialization.MapCodec;
 import de.mrjulsen.paw.block.abstractions.ICatenaryWireConnector;
@@ -27,7 +28,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.InteractionHand;
 import com.simibubi.create.AllItems;
 
-/** Railway mounting/operating shell for an existing CEE HV switch. */
+/** Railway OHE section/feeder switch mounted on a real P&W pole. */
 public final class OheSwitchAssemblyBlock extends HorizontalDirectionalBlock
         implements EntityBlock, IWireConnector, ICatenaryWireConnector {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -46,6 +47,9 @@ public final class OheSwitchAssemblyBlock extends HorizontalDirectionalBlock
 
     @Override
     public BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext context) {
+        BlockPos pos = context.getClickedPos();
+        if (!PawOhePlacement.onPawPole(context.getLevel(), pos.below())) return null;
+        if (!PawOhePlacement.onCatenary(context.getLevel(), pos)) return null;
         return defaultBlockState().setValue(FACING, context.getHorizontalDirection());
     }
 
@@ -91,8 +95,6 @@ public final class OheSwitchAssemblyBlock extends HorizontalDirectionalBlock
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
                                               BlockPos pos, Player player, InteractionHand hand,
                                               BlockHitResult hit) {
-        // Empty hand selects the physical function without changing the
-        // P&W wire graph: OHE section switch <-> feeder switch.
         if (stack.isEmpty()) {
             if (!level.isClientSide) {
                 level.setBlock(pos, state.cycle(FEEDER_MODE), Block.UPDATE_ALL);

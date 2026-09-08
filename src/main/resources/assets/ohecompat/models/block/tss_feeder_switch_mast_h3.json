@@ -1,0 +1,5 @@
+{
+  "credit": "OHE Compatibility TSS 3-block mast",
+  "textures": {"iron": "minecraft:block/iron_block"},
+  "elements": [{"from":[6,-32,6],"to":[10,0,10],"faces":{"down":{"texture":"#iron"},"up":{"texture":"#iron"},"north":{"texture":"#iron"},"south":{"texture":"#iron"},"west":{"texture":"#iron"},"east":{"texture":"#iron"}}}]
+}

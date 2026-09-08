@@ -83,10 +83,8 @@ public final class TssFeederSwitchBlock extends HorizontalDirectionalBlock
         return PawNativeConnector.sectionPoint(level.getBlockState(pos).getValue(FACING), connectionPointIndex);
     }
 
-    @Override
-    public Vec3 tensionWireAttachPoint(Level level, BlockPos pos, BlockState state,
-                                        CustomData customData, int index) {
-        return index >= 0 && index <= 1 ? endpoint(state.getValue(FACING), index) : Vec3.ZERO;
+    public Vec3 getConnectorPoint(Level level, BlockPos pos, BlockState state, int index) {
+        return endpoint(state.getValue(FACING), index);
     }
 
     @Override

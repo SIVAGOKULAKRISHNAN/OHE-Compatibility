@@ -3,6 +3,7 @@ package com.gokul.ohecompat.block;
 import com.george_vi.electroenergetics.content.connector.ConnectorBlock;
 import com.gokul.ohecompat.blockentity.OheSectionBlockEntity;
 import com.gokul.ohecompat.integration.PawNativeConnector;
+import com.gokul.ohecompat.integration.PawOhePlacement;
 import com.gokul.ohecompat.registry.ModBlocks;
 import com.mojang.serialization.MapCodec;
 import de.mrjulsen.paw.block.abstractions.ICatenaryWireConnector;
@@ -27,10 +28,8 @@ import com.simibubi.create.AllItems;
 
 /**
  * Common electrical/physical shell for C1-C4.
- *
- * CEE owns the two electrical endpoints, while P&W owns the catenary endpoint
- * graph.  The compatibility manager may electrically separate the two sides
- * without removing the native P&W wire geometry.
+ * P&W owns the physical catenary wire. C1-C4 are only valid when placed directly
+ * on an existing P&W catenary segment; they are never free-standing ground devices.
  */
 public class OheSectionAssemblyBlock extends ConnectorBlock
         implements EntityBlock, IWireConnector, ICatenaryWireConnector {
@@ -50,8 +49,6 @@ public class OheSectionAssemblyBlock extends ConnectorBlock
     public OheSectionAssemblyBlock(Properties properties, Style style) {
         super(properties);
         this.style = style;
-        // IMPORTANT: use ConnectorBlock.FACING inherited from CEE. Do not
-        // redeclare a horizontal-only property with the same name.
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(STYLE, ConnectorBlock.Style.SHORT)
@@ -70,6 +67,7 @@ public class OheSectionAssemblyBlock extends ConnectorBlock
 
     @Override
     public BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext context) {
+        if (!PawOhePlacement.onCatenary(context.getLevel(), context.getClickedPos())) return null;
         Direction facing = context.getHorizontalDirection();
         return defaultBlockState().setValue(FACING, facing);
     }

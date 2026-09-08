@@ -55,7 +55,11 @@ public final class PawPowerBridgeFlowManager {
         InfrastructureSavedData sd = InfrastructureSavedData.load(level);
 
         for (WireNode pn : graph.getNodes()) {
-            BlockPos bridgePos = pn.getPos();
+            org.joml.Vector3d nodePosition = pn.getPos();
+            BlockPos bridgePos = new BlockPos(
+                    (int) Math.floor(nodePosition.x),
+                    (int) Math.floor(nodePosition.y),
+                    (int) Math.floor(nodePosition.z));
             BlockState bridgeState = level.getBlockState(bridgePos);
             if (!(bridgeState.getBlock() instanceof OhePowerBridgeBlock)) continue;
             if (!hasCatenaryEdge(graph, pn.getId())) continue;
@@ -84,8 +88,12 @@ public final class PawPowerBridgeFlowManager {
 
             sd.createNode(shadow, attachment, Vec3.ZERO);
 
-            sd.registerOrUpdateNodes(bridgePos, List.of(0));
-            InWorldNode ceeNode = new InWorldNode(0, bridgePos);
+            BlockPos ceeBlockPos = new BlockPos(
+                    (int) Math.floor(nodePosition.x),
+                    (int) Math.floor(nodePosition.y),
+                    (int) Math.floor(nodePosition.z));
+            sd.registerOrUpdateNodes(ceeBlockPos, List.of(0));
+            InWorldNode ceeNode = new InWorldNode(0, ceeBlockPos);
             if (!sd.hasNode(ceeNode)) continue;
 
             Vec3 ceePosition = sd.getNodePositionOrCenter(ceeNode);

@@ -23,9 +23,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Makes every compatibility OHE connector use P&W's native BlockConnectorNodeData
- * path. No second guessed endpoint offset is applied here; P&W applies the
- * connector's registered attach offset exactly once.
+ * Makes compatibility OHE connectors use P&W's native BlockConnectorNodeData
+ * path. P&W remains authoritative for the physical catenary graph.
  */
 @Mixin(CatenaryWireItem.class)
 public abstract class PawCatenaryWireItemMixin {
@@ -47,8 +46,7 @@ public abstract class PawCatenaryWireItemMixin {
         if (!(level.getBlockEntity(connectorPos) instanceof WireConnectorBlockEntity)) return;
         if (!connector.canConnectWire(level, connectorPos, state)) return;
 
-        // Native P&W node data. The connector's registered attach-point provider
-        // supplies the physical endpoint, so there is no double offset.
+        // P&W's own node-data path. Do not create a second OHE wire graph.
         cir.setReturnValue(new BlockConnectorNodeData(connectorPos));
     }
 
@@ -61,12 +59,13 @@ public abstract class PawCatenaryWireItemMixin {
             return hitPos;
         }
 
-        // Internal two-block insulator parts belong to the three-block Power Bridge.
+        // Targeting either visible insulator on the Power Bridge must resolve to
+        // the actual P&W connector block at the top of the three-block assembly.
         if (state.is(ModBlocks.OHE_SECTION_INSULATOR.get())) {
-            BlockPos p = hitPos.above();
-            if (level.getBlockState(p).getBlock() instanceof OhePowerBridgeBlock) return p;
-            p = hitPos.above(2);
-            if (level.getBlockState(p).getBlock() instanceof OhePowerBridgeBlock) return p;
+            for (int i = 1; i <= 2; i++) {
+                BlockPos p = hitPos.above(i);
+                if (level.getBlockState(p).getBlock() instanceof OhePowerBridgeBlock) return p;
+            }
         }
         return null;
     }

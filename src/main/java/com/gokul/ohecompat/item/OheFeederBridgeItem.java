@@ -9,6 +9,7 @@ import de.mrjulsen.wires.graph.WireEdge;
 import de.mrjulsen.wires.graph.WireGraph;
 import de.mrjulsen.wires.graph.WireGraphManager;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import org.joml.Vector3d;
 import de.mrjulsen.wires.item.IWireInteractableItem;
@@ -71,7 +73,7 @@ public final class OheFeederBridgeItem extends BlockItem implements IWireInterac
         }
 
         ItemStack stack = player.getItemInHand(hand);
-        CompoundTag tag = stack.getOrCreateTag();
+        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         Optional<PawWireSelection> first = tag.contains(NBT_FIRST)
                 ? PawWireSelection.fromNbt(tag.getCompound(NBT_FIRST))
                 : Optional.empty();
@@ -133,9 +135,11 @@ public final class OheFeederBridgeItem extends BlockItem implements IWireInterac
             return InteractionResult.FAIL;
         }
 
-        tag.remove(NBT_FIRST);
-        stack.setTag(tag);
-        if (!player.isCreative() && !player.isSpectator()) stack.shrink(1);
+        CustomData.update(DataComponents.CUSTOM_DATA, stack,
+                tagValue -> tagValue.remove(NBT_FIRST));
+        if (!player.isCreative() && !player.isSpectator()) {
+            stack.shrink(1);
+        }
 
         player.displayClientMessage(Component.literal(
                 "Feeder Bridge linked: P&W Energy Wire → Feeder Bridge → P&W OHE."), true);

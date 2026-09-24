@@ -2,6 +2,7 @@ package com.gokul.ohecompat.integration;
 
 import com.gokul.ohecompat.config.OheConfig;
 import com.gokul.ohecompat.blockentity.OheSectionBlockEntity;
+import com.gokul.ohecompat.blockentity.OheJunctionLineBlockEntity;
 import com.george_vi.electroenergetics.simulation.infrastructure.WireData;
 import com.george_vi.electroenergetics.simulation.infrastructure.InfrastructureSavedData;
 import com.george_vi.electroenergetics.simulation.infrastructure.InWorldNodeData;
@@ -35,6 +36,8 @@ public final class PawShadowCatenaryManager {
     private static final String NODE_PREFIX = "ohecompat:paw:ohe:";
     private static final String FEEDER_NODE_PREFIX = "ohecompat:paw:feeder:";
     private static final String SECTION_PREFIX = "ohecompat:section:";
+    private static final String JUNCTION_TAP_PREFIX = "ohecompat:junction:tap:";
+    private static final String FEEDER_TAP_PREFIX = "ohecompat:feeder:tap:";
 
     private static final Map<ServerLevel, String> SIGNATURES = new WeakHashMap<>();
 
@@ -74,7 +77,9 @@ public final class PawShadowCatenaryManager {
         if (graph == null) return;
 
         boolean sectionRefresh = SectionRegistry.refreshUnlinked(level);
-        String signature = signature(graph) + "|" + SectionRegistry.signature(level);
+        String signature = signature(graph) + "|" + SectionRegistry.signature(level)
+                + "|J=" + JunctionRegistry.signature(level)
+                + "|F=" + FeederBridgeRegistry.signature(level);
 
         InfrastructureSavedData sd = InfrastructureSavedData.load(level);
 
@@ -153,6 +158,10 @@ public final class PawShadowCatenaryManager {
             ensureConnected(sd, ca, cb, distance(pa, pb));
         }
 
+        // EXP26 explicit Junction Line path: native P&W selections become
+        // exact CEE tap points and are joined only through the selected path.
+        List<SelectedTap> explicitSelectedTaps = syncExplicitJunctions(level, sd);
+
         // C1-C4 expose two real CEE connector nodes. If a native P&W node is
         // physically attached to either endpoint, bridge that exact endpoint to
         // the matching CEE node. When the section is not isolated, connect its
@@ -162,8 +171,12 @@ public final class PawShadowCatenaryManager {
         // separate invisible CEE electrical circuit. The physical conductor,
         // rendering and node ownership remain entirely P&W-side.
         syncFeederNetwork(level, sd, graph, feederNodes);
-        Set<String> expectedFeederBridgeLinks = syncFeederBridgeLinks(level, sd, graph, feederNodes);
-        removeStaleFeederBridgeLinks(level, sd, expectedFeederBridgeLinks);
+        // EXP26: bridge the exact selected P&W Energy Wire point to the exact
+        // selected P&W OHE point through the one native CEE bridge node.
+        explicitSelectedTaps.addAll(syncExplicitFeederBridges(level, sd));
+        syncExplicitSelectedTapSegments(level, sd, explicitSelectedTaps);
+        // Legacy endpoint-only Feeder Bridge links are intentionally no longer
+        // created here. The explicit two-selection path is authoritative.
         Set<String> expectedFeederSwitchLinks = syncFeederSwitchCompatibilityLinks(level, sd, graph, feederNodes);
         removeStaleFeederSwitchCompatibilityLinks(level, sd, expectedFeederSwitchLinks);
         removeStaleFeederShadowConnections(sd, liveFeederNodes);
@@ -244,6 +257,234 @@ public final class PawShadowCatenaryManager {
         } else {
             SIGNATURES.remove(level);
         }
+    }
+
+
+    private static List<SelectedTap> syncExplicitJunctions(ServerLevel level, InfrastructureSavedData sd) {
+        clearCompatibilityNodes(sd, JUNCTION_TAP_PREFIX);
+        List<SelectedTap> taps = new ArrayList<>();
+
+        for (OheJunctionLineBlockEntity be : JunctionRegistry.get(level)) {
+            if (!be.linked()) continue;
+            PawWireSelection selectedA = be.selectionA();
+            PawWireSelection selectedB = be.selectionB();
+
+            if (!isPawCatenarySelection(level, selectedA) || !isPawCatenarySelection(level, selectedB)) continue;
+            if (selectedA.edgeId().equals(selectedB.edgeId())
+                    && selectedA.graphId().equals(selectedB.graphId())) continue;
+
+            Optional<org.joml.Vector3d> pa = selectedA.exactPosition(level);
+            Optional<org.joml.Vector3d> pb = selectedB.exactPosition(level);
+            if (pa.isEmpty() || pb.isEmpty()) continue;
+
+            String base = JUNCTION_TAP_PREFIX + be.getBlockPos().asLong() + ":";
+            InWorldNode aTap = createCompatibilityTap(sd, base + "A", pa.get());
+            InWorldNode bTap = createCompatibilityTap(sd, base + "B", pb.get());
+
+            // This is the actual Junction transfer circuit. The P&W
+            // contact conductors are still physical/native; only CEE's
+            // invisible electrical mirror is bridged between the selections.
+            ensureConnected(sd, aTap, bTap, Math.max(0.01D, pa.get().distance(pb.get())));
+
+            taps.add(new SelectedTap(selectedA, aTap, NODE_PREFIX, pa.get()));
+            taps.add(new SelectedTap(selectedB, bTap, NODE_PREFIX, pb.get()));
+
+            System.out.println("[OHE-JUNCTION] CEE transfer linked A=" + selectedA.edgeId()
+                    + "@" + selectedA.percentage()
+                    + " -> B=" + selectedB.edgeId() + "@" + selectedB.percentage()
+                    + " host=" + be.getBlockPos());
+        }
+        return taps;
+    }
+
+    private static List<SelectedTap> syncExplicitFeederBridges(ServerLevel level, InfrastructureSavedData sd) {
+        clearCompatibilityNodes(sd, FEEDER_TAP_PREFIX);
+        List<SelectedTap> taps = new ArrayList<>();
+
+        for (com.gokul.ohecompat.blockentity.OheFeederBridgeBlockEntity be
+                : FeederBridgeRegistry.get(level)) {
+            if (!be.linked()) continue;
+
+            PawWireSelection energy = be.energyWire();
+            PawWireSelection ohe = be.oheWire();
+            if (!isPawEnergySelection(level, energy) || !isPawCatenarySelection(level, ohe)) continue;
+
+            Optional<org.joml.Vector3d> energyPoint = energy.exactPosition(level);
+            Optional<org.joml.Vector3d> ohePoint = ohe.exactPosition(level);
+            if (energyPoint.isEmpty() || ohePoint.isEmpty()) continue;
+
+            BlockPos bridgePos = be.getBlockPos();
+            sd.registerOrUpdateNodes(bridgePos, List.of(0));
+            InWorldNode bridgeNode = new InWorldNode(0, bridgePos);
+            if (!sd.hasNode(bridgeNode)) continue;
+
+            String base = FEEDER_TAP_PREFIX + bridgePos.asLong() + ":";
+            InWorldNode energyTap = createCompatibilityTap(sd, base + "ENERGY", energyPoint.get());
+            InWorldNode oheTap = createCompatibilityTap(sd, base + "OHE", ohePoint.get());
+
+            ensureConnected(sd, bridgeNode, energyTap,
+                    Math.max(0.01D, bridgePos.getCenter().distanceTo(new Vec3(
+                            energyPoint.get().x, energyPoint.get().y, energyPoint.get().z))));
+            ensureConnected(sd, bridgeNode, oheTap,
+                    Math.max(0.01D, bridgePos.getCenter().distanceTo(new Vec3(
+                            ohePoint.get().x, ohePoint.get().y, ohePoint.get().z))));
+
+            taps.add(new SelectedTap(energy, energyTap, FEEDER_NODE_PREFIX, energyPoint.get()));
+            taps.add(new SelectedTap(ohe, oheTap, NODE_PREFIX, ohePoint.get()));
+
+            System.out.println("[OHE-FEEDER] CEE transfer linked EnergyWire=" + energy.edgeId()
+                    + "@" + energy.percentage()
+                    + " -> Bridge=" + bridgePos
+                    + " -> OHE=" + ohe.edgeId() + "@" + ohe.percentage());
+        }
+        return taps;
+    }
+
+    private static void syncExplicitSelectedTapSegments(ServerLevel level,
+                                                        InfrastructureSavedData sd,
+                                                        List<SelectedTap> taps) {
+        record EdgeKey(String graphId, UUID edgeId, String shadowPrefix) {}
+
+        Map<EdgeKey, List<SelectedTap>> grouped = new HashMap<>();
+        for (SelectedTap tap : taps) {
+            PawWireSelection selection = tap.selection();
+            grouped.computeIfAbsent(
+                    new EdgeKey(selection.graphId(), selection.edgeId(), tap.shadowPrefix()),
+                    x -> new ArrayList<>()).add(tap);
+        }
+
+        for (Map.Entry<EdgeKey, List<SelectedTap>> entry : grouped.entrySet()) {
+            EdgeKey key = entry.getKey();
+            try {
+                WireGraph graph = WireGraphManager.get(
+                        level, new de.mrjulsen.wires.util.GraphId(key.graphId()));
+                WireEdge edge = graph.getEdge(key.edgeId());
+                if (edge == null) continue;
+
+                WireNode pa = graph.getNode(edge.getNodeAId());
+                WireNode pb = graph.getNode(edge.getNodeBId());
+                InWorldNode ca = nodesForPrefix(sd, edge.getNodeAId(), key.shadowPrefix());
+                InWorldNode cb = nodesForPrefix(sd, edge.getNodeBId(), key.shadowPrefix());
+                if (pa == null || pb == null || ca == null || cb == null) continue;
+
+                org.joml.Vector3d ea = attachmentPosition(
+                        pa, edge.getWireConnectionData().connectorA());
+                org.joml.Vector3d eb = attachmentPosition(
+                        pb, edge.getWireConnectionData().connectorB());
+
+                List<SelectedTap> sorted = new ArrayList<>(entry.getValue());
+                sorted.sort(Comparator.comparingDouble(x -> x.selection().percentage()));
+
+                // A selected tap is a real electrical tap, not an additional
+                // conductor. Split the existing CEE shadow edge so resistance
+                // is represented by segment lengths on both sides.
+                removeDirect(sd, ca, cb);
+
+                InWorldNode previous = ca;
+                org.joml.Vector3d previousPoint = ea;
+                for (SelectedTap tap : sorted) {
+                    ensureConnected(sd, previous, tap.node(),
+                            Math.max(0.01D, previousPoint.distance(tap.point())));
+                    previous = tap.node();
+                    previousPoint = tap.point();
+                }
+                ensureConnected(sd, previous, cb,
+                        Math.max(0.01D, previousPoint.distance(eb)));
+            } catch (Exception ignored) {
+                // Rebuilt on the next dirty sync when the P&W graph becomes valid.
+            }
+        }
+    }
+
+    private record SelectedTap(PawWireSelection selection,
+                               InWorldNode node,
+                               String shadowPrefix,
+                               org.joml.Vector3d point) {}
+
+    private static PawWireSelection withWireName(PawWireSelection source, String wireName) {
+        return new PawWireSelection(source.graphId(), source.edgeId(), wireName,
+                source.percentage(), source.channel());
+    }
+
+    private static boolean isPawCatenarySelection(ServerLevel level, PawWireSelection selection) {
+        if (selection == null) return false;
+        return selection.edge(level)
+                .map(edge -> isOheWire(edge))
+                .orElse(false)
+                && "contact".equals(selection.wireName());
+    }
+
+    private static boolean isPawEnergySelection(ServerLevel level, PawWireSelection selection) {
+        return selection != null && selection.edge(level)
+                .map(PawShadowCatenaryManager::isFeederWire)
+                .orElse(false);
+    }
+
+    private static InWorldNode createCompatibilityTap(InfrastructureSavedData sd, String label,
+                                                       org.joml.Vector3d point) {
+        for (InWorldNode n : sd.getNodes()) {
+            InWorldNodeData d = sd.getNodeData(n);
+            if (d != null && label.equals(d.label)) {
+                sd.createNode(n, new Vec3(point.x, point.y, point.z), Vec3.ZERO);
+                return n;
+            }
+        }
+        InWorldNodeData d = sd.createDetachedNode(DetachedNodeType.FIXED,
+                new Vec3(point.x, point.y, point.z));
+        d.label = label;
+        return d.node;
+    }
+
+    private static void clearCompatibilityNodes(InfrastructureSavedData sd, String prefix) {
+        for (InWorldNode n : List.copyOf(sd.getNodes())) {
+            InWorldNodeData d = sd.getNodeData(n);
+            if (d == null || d.label == null || !d.label.startsWith(prefix)) continue;
+            for (var connection : List.copyOf(sd.getConnections(n))) {
+                sd.removeConnectionNoDrops(connection);
+            }
+            sd.removeNode(n);
+        }
+    }
+
+    private static boolean connectTapToSelectedEdge(ServerLevel level,
+                                                     InfrastructureSavedData sd,
+                                                     InWorldNode tap,
+                                                     PawWireSelection selection,
+                                                     String shadowPrefix) {
+        if (selection == null) return false;
+
+        try {
+            WireGraph selectedGraph = WireGraphManager.get(
+                    level, new de.mrjulsen.wires.util.GraphId(selection.graphId()));
+            WireEdge edge = selectedGraph.getEdge(selection.edgeId());
+            if (edge == null) return false;
+
+            WireNode pa = selectedGraph.getNode(edge.getNodeAId());
+            WireNode pb = selectedGraph.getNode(edge.getNodeBId());
+            InWorldNode ca = nodesForPrefix(sd, edge.getNodeAId(), shadowPrefix);
+            InWorldNode cb = nodesForPrefix(sd, edge.getNodeBId(), shadowPrefix);
+            if (pa == null || pb == null || ca == null || cb == null) return false;
+
+            Optional<org.joml.Vector3d> exact = selection.exactPosition(level);
+            if (exact.isEmpty()) return false;
+
+            org.joml.Vector3d ea = attachmentPosition(pa, edge.getWireConnectionData().connectorA());
+            org.joml.Vector3d eb = attachmentPosition(pb, edge.getWireConnectionData().connectorB());
+            ensureConnected(sd, tap, ca, Math.max(0.01D, exact.get().distance(ea)));
+            ensureConnected(sd, tap, cb, Math.max(0.01D, exact.get().distance(eb)));
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    private static InWorldNode nodesForPrefix(InfrastructureSavedData sd, UUID id, String prefix) {
+        String label = prefix + id;
+        for (InWorldNode n : sd.getNodes()) {
+            InWorldNodeData d = sd.getNodeData(n);
+            if (d != null && label.equals(d.label)) return n;
+        }
+        return null;
     }
 
     private static boolean isOheWire(WireEdge edge) {

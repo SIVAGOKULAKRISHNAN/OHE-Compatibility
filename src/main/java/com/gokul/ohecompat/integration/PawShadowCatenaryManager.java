@@ -160,7 +160,7 @@ public final class PawShadowCatenaryManager {
 
         // EXP26 explicit Junction Line path: native P&W selections become
         // exact CEE tap points and are joined only through the selected path.
-        syncExplicitJunctions(level, sd);
+        List<SelectedTap> explicitSelectedTaps = syncExplicitJunctions(level, sd);
 
         // C1-C4 expose two real CEE connector nodes. If a native P&W node is
         // physically attached to either endpoint, bridge that exact endpoint to
@@ -173,7 +173,8 @@ public final class PawShadowCatenaryManager {
         syncFeederNetwork(level, sd, graph, feederNodes);
         // EXP26: bridge the exact selected P&W Energy Wire point to the exact
         // selected P&W OHE point through the one native CEE bridge node.
-        syncExplicitFeederBridges(level, sd);
+        explicitSelectedTaps.addAll(syncExplicitFeederBridges(level, sd));
+        syncExplicitSelectedTapSegments(level, sd, explicitSelectedTaps);
         // Legacy endpoint-only Feeder Bridge links are intentionally no longer
         // created here. The explicit two-selection path is authoritative.
         Set<String> expectedFeederSwitchLinks = syncFeederSwitchCompatibilityLinks(level, sd, graph, feederNodes);

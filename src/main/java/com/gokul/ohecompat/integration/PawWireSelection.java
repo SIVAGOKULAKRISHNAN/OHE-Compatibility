@@ -86,10 +86,6 @@ public record PawWireSelection(
         }
     }
 
-    public boolean isPawCatenary() {
-        return "pantographsandwires:catenary_wire".equals(
-                edgeTypeIdHint());
-    }
 
     public boolean isNamedWire(String name) {
         return name != null && name.equals(wireName);
@@ -103,9 +99,6 @@ public record PawWireSelection(
                 Double.toString(percentage) + ":" + channel;
     }
 
-    private String edgeTypeIdHint() {
-        return "";
-    }
 
     public CompoundTag toNbt() {
         CompoundTag tag = new CompoundTag();

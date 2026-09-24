@@ -10,6 +10,7 @@ import de.mrjulsen.wires.graph.WireGraph;
 import de.mrjulsen.wires.graph.WireGraphManager;
 import de.mrjulsen.wires.util.GraphId;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -65,13 +66,15 @@ public final class OheJunctionLineItem extends BlockItem implements IWireInterac
             return InteractionResult.FAIL;
         }
 
-        CompoundTag stackTag = player.getItemInHand(hand).getOrCreateTag();
+        ItemStack stack = player.getItemInHand(hand);
+        CompoundTag stackTag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         Optional<PawWireSelection> first = stackTag.contains(NBT_SELECTION_A)
                 ? PawWireSelection.fromNbt(stackTag.getCompound(NBT_SELECTION_A))
                 : Optional.empty();
 
         if (first.isEmpty()) {
-            stackTag.put(NBT_SELECTION_A, selection.get().toNbt());
+            CustomData.update(DataComponents.CUSTOM_DATA, stack,
+                    tag -> tag.put(NBT_SELECTION_A, selection.get().toNbt()));
             player.displayClientMessage(Component.literal(
                     "Junction A selected • click the second P&W OHE line for B"), true);
             return InteractionResult.SUCCESS;
@@ -113,12 +116,10 @@ public final class OheJunctionLineItem extends BlockItem implements IWireInterac
             return InteractionResult.FAIL;
         }
 
-        stackTag.remove(NBT_SELECTION_A);
-        if (player.getItemInHand(hand).getCount() == 1 && stackTag.isEmpty()) {
-            player.setItemInHand(hand, net.minecraft.world.item.ItemStack.EMPTY);
-        } else {
-            player.getItemInHand(hand).setTag(stackTag);
-            if (!player.isCreative() && !player.isSpectator()) player.getItemInHand(hand).shrink(1);
+        CustomData.update(DataComponents.CUSTOM_DATA, stack,
+                tag -> tag.remove(NBT_SELECTION_A));
+        if (!player.isCreative() && !player.isSpectator()) {
+            stack.shrink(1);
         }
 
         player.displayClientMessage(Component.literal("Junction Line created: P&W OHE A → P&W OHE B."), true);

@@ -54,8 +54,8 @@ public final class OheJunctionLineItem extends BlockItem implements IWireInterac
         }
 
         String wireName = hit.getWireId().name();
-        if (!"contact".equals(wireName) && !"tension".equals(wireName)) {
-            player.displayClientMessage(Component.literal("Junction Line: select the contact or catenary/tension conductor."), true);
+        if (!"contact".equals(wireName)) {
+            player.displayClientMessage(Component.literal("Junction Line: select the P&W contact conductor."), true);
             return InteractionResult.FAIL;
         }
 

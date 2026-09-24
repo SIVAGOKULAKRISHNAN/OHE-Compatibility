@@ -59,8 +59,8 @@ public final class OheFeederBridgeItem extends BlockItem implements IWireInterac
             player.displayClientMessage(Component.literal("Feeder Bridge: select P&W Energy Wire or P&W OHE."), true);
             return InteractionResult.FAIL;
         }
-        if (ohe && !"contact".equals(hit.getWireId().name()) && !"tension".equals(hit.getWireId().name())) {
-            player.displayClientMessage(Component.literal("Feeder Bridge: select the OHE contact/tension conductor."), true);
+        if (ohe && !"contact".equals(hit.getWireId().name())) {
+            player.displayClientMessage(Component.literal("Feeder Bridge: select the P&W OHE contact conductor."), true);
             return InteractionResult.FAIL;
         }
 

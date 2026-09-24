@@ -2,6 +2,7 @@ package com.gokul.ohecompat.integration;
 
 import com.gokul.ohecompat.config.OheConfig;
 import com.gokul.ohecompat.blockentity.OheSectionBlockEntity;
+import com.gokul.ohecompat.blockentity.OheJunctionLineBlockEntity;
 import com.george_vi.electroenergetics.simulation.infrastructure.WireData;
 import com.george_vi.electroenergetics.simulation.infrastructure.InfrastructureSavedData;
 import com.george_vi.electroenergetics.simulation.infrastructure.InWorldNodeData;
@@ -156,6 +157,10 @@ public final class PawShadowCatenaryManager {
             expected.add(new NodePair(ca.id(), cb.id()));
             ensureConnected(sd, ca, cb, distance(pa, pb));
         }
+
+        // EXP26 explicit Junction Line path: native P&W selections become
+        // exact CEE tap points and are joined only through the selected path.
+        syncExplicitJunctions(level, sd);
 
         // C1-C4 expose two real CEE connector nodes. If a native P&W node is
         // physically attached to either endpoint, bridge that exact endpoint to
@@ -336,9 +341,9 @@ public final class PawShadowCatenaryManager {
             if (!connectTapToSelectedEdge(level, sd, oheTap, ohe, NODE_PREFIX)) continue;
 
             ensureConnected(sd, bridgeNode, energyTap,
-                    Math.max(0.01D, bridgePos.getCenter().distanceToSqrVec(energyPoint.get())));
+                    Math.max(0.01D, bridgePos.getCenter().distanceTo(new Vec3(energyPoint.get().x, energyPoint.get().y, energyPoint.get().z))));
             ensureConnected(sd, bridgeNode, oheTap,
-                    Math.max(0.01D, bridgePos.getCenter().distanceToSqr(ohePoint.get().x, ohePoint.get().y, ohePoint.get().z)));
+                    Math.max(0.01D, bridgePos.getCenter().distanceTo(new Vec3(ohePoint.get().x, ohePoint.get().y, ohePoint.get().z))));
 
             System.out.println("[OHE-FEEDER] CEE transfer linked EnergyWire=" + energy.edgeId()
                     + "@" + energy.percentage()

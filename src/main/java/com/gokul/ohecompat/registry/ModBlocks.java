@@ -34,10 +34,10 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> OHE_SECTION_INSULATOR = BLOCKS.register("ohe_section_insulator",
             () -> new OheSectionInsulatorBlock(BlockBehaviour.Properties.of().strength(1.5f).noOcclusion()));
 
-    public static final DeferredBlock<Block> OHE_FEEDER_BRIDGE = BLOCKS.register("ohe_feeder_bridge",
+    public static final DeferredBlock<OheFeederBridgeBlock> OHE_FEEDER_BRIDGE = BLOCKS.register("ohe_feeder_bridge",
             () -> new OheFeederBridgeBlock(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion()));
 
-    public static final DeferredBlock<Block> OHE_JUNCTION_LINE = BLOCKS.register("ohe_junction_line",
+    public static final DeferredBlock<OheJunctionLineBlock> OHE_JUNCTION_LINE = BLOCKS.register("ohe_junction_line",
             () -> new OheJunctionLineBlock(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion()));
 
     public static final DeferredBlock<Block> OHE_SWITCH_ASSEMBLY = BLOCKS.register("ohe_switch_assembly",

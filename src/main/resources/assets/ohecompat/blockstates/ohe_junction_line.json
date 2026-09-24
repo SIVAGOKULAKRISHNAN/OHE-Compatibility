@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "ohecompat:block/ohe_junction_line", "y": 0 },
+    "facing=east":  { "model": "ohecompat:block/ohe_junction_line", "y": 90 },
+    "facing=south": { "model": "ohecompat:block/ohe_junction_line", "y": 180 },
+    "facing=west":  { "model": "ohecompat:block/ohe_junction_line", "y": 270 }
+  }
+}

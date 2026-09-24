@@ -21,6 +21,8 @@ public final class OheCompatPonderScenes {
         scene.title("feeder_upper", "OHE Feeder Bridge - Upper OHE pickup");
         scene.configureBasePlate(0, 0, 5);
         scene.world().showSection(util.select().layer(0), Direction.UP);
+        scene.world().setBlock(util.grid().at(2, 1, 2), ModBlocks.OHE_FEEDER_BRIDGE.get().defaultBlockState(), false);
+        scene.world().setBlock(util.grid().at(2, 2, 2), ModBlocks.OHE_POWER_BRIDGE.get().defaultBlockState(), false);
         scene.world().showSection(util.select().position(2, 1, 2), Direction.DOWN);
         scene.world().showSection(util.select().position(2, 2, 2), Direction.DOWN);
         scene.idle(15);
@@ -49,6 +51,8 @@ public final class OheCompatPonderScenes {
         scene.title("feeder_energy", "OHE Feeder Bridge - P&W Energy Wire");
         scene.configureBasePlate(0, 0, 5);
         scene.world().showSection(util.select().layer(0), Direction.UP);
+        scene.world().setBlock(util.grid().at(2, 1, 2), ModBlocks.OHE_FEEDER_BRIDGE.get().defaultBlockState(), false);
+        scene.world().setBlock(util.grid().at(1, 2, 2), ModBlocks.OHE_FEEDER_BRIDGE.get().defaultBlockState(), false);
         scene.world().showSection(util.select().position(2, 1, 2), Direction.DOWN);
         scene.world().showSection(util.select().position(1, 2, 2), Direction.DOWN);
         scene.idle(15);
@@ -76,8 +80,9 @@ public final class OheCompatPonderScenes {
         scene.title("junction_line", "Junction Line - OHE A to OHE B");
         scene.configureBasePlate(0, 0, 7);
         scene.world().showSection(util.select().layer(0), Direction.UP);
-        scene.world().showSection(util.select().fromTo(1, 1, 3, 5, 1, 3), Direction.DOWN);
-        scene.world().showSection(util.select().position(3, 2, 3), Direction.DOWN);
+        scene.world().setBlock(util.grid().at(2, 1, 3), ModBlocks.OHE_JUNCTION_LINE.get().defaultBlockState(), false);
+        scene.world().setBlock(util.grid().at(3, 1, 3), ModBlocks.OHE_JUNCTION_LINE.get().defaultBlockState(), false);
+        scene.world().showSection(util.select().fromTo(2, 1, 3, 3, 1, 3), Direction.DOWN);
         scene.idle(15);
 
         scene.overlay().showText(70)
@@ -97,11 +102,6 @@ public final class OheCompatPonderScenes {
                 .text("Electrical topology: A Contact -> A Catenary -> B Catenary -> B Contact. Other P&W channels stay independent.")
                 .pointAt(util.vector().centerOf(util.grid().at(3, 2, 3)));
         scene.idle(80);
-    }
-
-    public static boolean hasPonderComponent() {
-        return ModBlocks.OHE_FEEDER_BRIDGE.isBound()
-                && ModBlocks.OHE_JUNCTION_LINE.isBound();
     }
 
     private OheCompatPonderScenes() {}

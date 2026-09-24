@@ -3,7 +3,11 @@ package com.gokul.ohecompat.registry;
 import com.gokul.ohecompat.OheCompat;
 import com.gokul.ohecompat.block.*;
 import com.gokul.ohecompat.blockentity.OheSectionBlockEntity;
+import com.gokul.ohecompat.blockentity.OheJunctionLineBlockEntity;
+import com.gokul.ohecompat.blockentity.OheFeederBridgeBlockEntity;
 import com.gokul.ohecompat.blockentity.PawConnectorBlockEntity;
+import com.gokul.ohecompat.item.OheJunctionLineItem;
+import com.gokul.ohecompat.item.OheFeederBridgeItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -32,6 +36,9 @@ public final class ModBlocks {
 
     public static final DeferredBlock<Block> OHE_FEEDER_BRIDGE = BLOCKS.register("ohe_feeder_bridge",
             () -> new OheFeederBridgeBlock(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion()));
+
+    public static final DeferredBlock<Block> OHE_JUNCTION_LINE = BLOCKS.register("ohe_junction_line",
+            () -> new OheJunctionLineBlock(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion()));
 
     public static final DeferredBlock<Block> OHE_SWITCH_ASSEMBLY = BLOCKS.register("ohe_switch_assembly",
             () -> new OheSwitchAssemblyBlock(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion()));
@@ -67,10 +74,15 @@ public final class ModBlocks {
                     () -> BlockEntityType.Builder.of((pos, state) -> createPawPowerBridgeBlockEntity(pos, state),
                             OHE_POWER_BRIDGE.get()).build(null));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PawConnectorBlockEntity>> OHE_FEEDER_BRIDGE_BE =
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OheFeederBridgeBlockEntity>> OHE_FEEDER_BRIDGE_BE =
             BLOCK_ENTITIES.register("ohe_feeder_bridge",
                     () -> BlockEntityType.Builder.of((pos, state) -> createPawFeederBridgeBlockEntity(pos, state),
                             OHE_FEEDER_BRIDGE.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OheJunctionLineBlockEntity>> OHE_JUNCTION_LINE_BE =
+            BLOCK_ENTITIES.register("ohe_junction_line",
+                    () -> BlockEntityType.Builder.of((pos, state) -> createOheJunctionLineBlockEntity(pos, state),
+                            OHE_JUNCTION_LINE.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PawConnectorBlockEntity>> OHE_SWITCH_BE =
             BLOCK_ENTITIES.register("ohe_switch",
@@ -102,8 +114,12 @@ public final class ModBlocks {
         return new PawConnectorBlockEntity(OHE_POWER_BRIDGE_BE.get(), pos, state);
     }
 
-    public static PawConnectorBlockEntity createPawFeederBridgeBlockEntity(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
-        return new PawConnectorBlockEntity(OHE_FEEDER_BRIDGE_BE.get(), pos, state);
+    public static OheFeederBridgeBlockEntity createPawFeederBridgeBlockEntity(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        return new OheFeederBridgeBlockEntity(OHE_FEEDER_BRIDGE_BE.get(), pos, state);
+    }
+
+    public static OheJunctionLineBlockEntity createOheJunctionLineBlockEntity(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        return new OheJunctionLineBlockEntity(OHE_JUNCTION_LINE_BE.get(), pos, state);
     }
 
     public static PawConnectorBlockEntity createPawSwitchBlockEntity(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
@@ -134,7 +150,8 @@ public final class ModBlocks {
         // not receive BlockItem entries, so they were invisible in the creative inventory/search.
         item("ohe_power_bridge", OHE_POWER_BRIDGE);
         item("ohe_section_insulator", OHE_SECTION_INSULATOR);
-        item("ohe_feeder_bridge", OHE_FEEDER_BRIDGE);
+        ITEMS.register("ohe_feeder_bridge", () -> new OheFeederBridgeItem(OHE_FEEDER_BRIDGE.get(), new Item.Properties()));
+        ITEMS.register("ohe_junction_line", () -> new OheJunctionLineItem(OHE_JUNCTION_LINE.get(), new Item.Properties()));
         item("ohe_switch_assembly", OHE_SWITCH_ASSEMBLY);
         item("tss_feeder_switch", TSS_FEEDER_SWITCH);
         item("c1_cantilever_neutral", C1_CANTILEVER_NEUTRAL);

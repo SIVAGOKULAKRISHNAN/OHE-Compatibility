@@ -10,7 +10,10 @@
   "block.ohecompat.ohe_switch_assembly": "OHE Switch Assembly",
   "block.ohecompat.ohe_feeder_bridge": "OHE Feeder Bridge",
   "item.ohecompat.ohe_feeder_bridge": "OHE Feeder Bridge",
-  "tooltip.ohecompat.ohe_feeder_bridge": "P&W Energy Wire terminal; empty-hand right-click toggles feeder construction option",
+  "tooltip.ohecompat.ohe_feeder_bridge": "Select P&W Energy Wire + OHE; empty-hand right-click toggles the feeder construction option.",
+  "block.ohecompat.ohe_junction_line": "OHE Junction Line",
+  "item.ohecompat.ohe_junction_line": "OHE Junction Line",
+  "tooltip.ohecompat.ohe_junction_line": "Select P&W OHE A, then P&W OHE B. The native Copper Wire remains the P&W copper conductor ingredient.",
   "tooltip.ohecompat.ohe_switch_assembly": "Wrench: operate current mode. Empty hand: OHE section / feeder switch mode.",
   "block.ohecompat.tss_feeder_switch": "TSS Feeder Switch / Isolator",
   "item.ohecompat.tss_feeder_switch": "TSS Feeder Switch / Isolator"

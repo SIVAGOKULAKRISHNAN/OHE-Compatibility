@@ -20,6 +20,7 @@ public final class ModCreativeTabs {
                     .displayItems((parameters, output) -> {
                         output.accept(ModBlocks.OHE_POWER_BRIDGE.get());
                         output.accept(ModBlocks.OHE_FEEDER_BRIDGE.get());
+                        output.accept(ModBlocks.OHE_JUNCTION_LINE.get());
                         output.accept(ModBlocks.OHE_SWITCH_ASSEMBLY.get());
                         output.accept(ModBlocks.TSS_FEEDER_SWITCH.get());
                         output.accept(ModBlocks.C1_CANTILEVER_NEUTRAL.get());

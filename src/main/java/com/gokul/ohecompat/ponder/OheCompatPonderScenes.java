@@ -40,7 +40,8 @@ public final class OheCompatPonderScenes {
                 .text("The bridge stores the P&W graph, wire, percentage and channel. No nearest-node guess is used.");
         scene.idle(80);
 
-        scene.overlay().showPalette(PonderPalette.GREEN, 60)
+        scene.overlay().showText(60)
+                .colored(PonderPalette.GREEN)
                 .text("Electrical path: CEE source -> Power Bridge -> native P&W Energy Wire -> Feeder Bridge -> P&W OHE")
                 .pointAt(util.vector().centerOf(util.grid().at(2, 2, 2)));
         scene.idle(70);
@@ -98,7 +99,8 @@ public final class OheCompatPonderScenes {
                 .text("Click the second P&W OHE conductor: this becomes B. Both selections retain exact graph, wire and percentage data.");
         scene.idle(80);
 
-        scene.overlay().showPalette(PonderPalette.GREEN, 70)
+        scene.overlay().showText(70)
+                .colored(PonderPalette.GREEN)
                 .text("Electrical topology: A Contact -> A Catenary -> B Catenary -> B Contact. Other P&W channels stay independent.")
                 .pointAt(util.vector().centerOf(util.grid().at(3, 2, 3)));
         scene.idle(80);

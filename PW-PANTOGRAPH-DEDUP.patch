@@ -66,7 +66,7 @@
 -}
 --- a/src/main/java/com/gokul/ohecompat/integration/PawPantographTrainBridge.java
 +++ b/src/main/java/com/gokul/ohecompat/integration/PawPantographTrainBridge.java
-@@ -116,8 +116,8 @@
+@@ -134,8 +134,8 @@
                  bound++;
  
                  if (level.getGameTime() % 40L == 0L) {
@@ -80,6 +80,7 @@
 --- a/gradle.properties
 +++ b/gradle.properties
 @@ -3,7 +3,7 @@
+ create_version=6.0.10-280
  mod_id=ohecompat
  mod_name=CEE + P&W OHE Compatibility
 -mod_version=0.2.0-alpha

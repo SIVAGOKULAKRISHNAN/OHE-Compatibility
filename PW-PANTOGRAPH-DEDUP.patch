@@ -1,0 +1,89 @@
+--- a/src/main/resources/ohecompat.mixins.json
++++ b/src/main/resources/ohecompat.mixins.json
+@@ -15,7 +15,6 @@
+     "CeeCatenaryModulePantographMixin",
+     "CeeWireSimulationStateLazyConnectionsMixin",
+     "ContraptionAnchorAccessor",
+-    "PawPantographTrainCaptureMixin",
+     "CeePawPantographMovementMixin"
+   ],
+   "client": [
+--- a/src/main/java/com/gokul/ohecompat/mixin/PawPantographTrainCaptureMixin.java
++++ /dev/null
+@@ -1,53 +0,0 @@
+-package com.gokul.ohecompat.mixin;
+-
+-import com.george_vi.electroenergetics.CEEPantographTypes;
+-import com.george_vi.electroenergetics.content.railway_electrification.pantograph.TrainPantographEntry;
+-import com.george_vi.electroenergetics.mixin_interfaces.IPantographList;
+-import de.mrjulsen.paw.block.PantographBlock;
+-import net.minecraft.core.BlockPos;
+-import net.minecraft.core.Direction;
+-import net.minecraft.world.level.Level;
+-import net.minecraft.world.level.block.Rotation;
+-import net.minecraft.world.level.block.state.BlockState;
+-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+-import org.spongepowered.asm.mixin.Mixin;
+-import org.spongepowered.asm.mixin.injection.At;
+-import org.spongepowered.asm.mixin.injection.Inject;
+-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+-import org.apache.commons.lang3.tuple.Pair;
+-import net.minecraft.world.level.block.entity.BlockEntity;
+-import com.simibubi.create.content.trains.entity.CarriageContraption;
+-
+-/**
+- * Adds native P&W pantographs to CEE's existing carriage pickup list during
+- * Create train assembly. This reuses CEE's train electrical simulation; it does
+- * not create a second electrical node system or alter P&W's physical wire graph.
+- */
+-@Mixin(targets = "com.simibubi.create.content.trains.entity.CarriageContraption", remap = false)
+-public abstract class PawPantographTrainCaptureMixin {
+-    @Inject(method = "capture", at = @At("RETURN"), remap = false)
+-    private void ohecompat$registerPawPantograph(
+-            Level level, BlockPos pos,
+-            CallbackInfoReturnable<Pair<StructureTemplate.StructureBlockInfo, BlockEntity>> cir) {
+-        if (level == null || pos == null) return;
+-        BlockState state = level.getBlockState(pos);
+-        if (!(state.getBlock() instanceof PantographBlock)) return;
+-
+-        IPantographList list = (IPantographList) this;
+-        BlockPos anchor = ((ContraptionAnchorAccessor) (Object) this).ohecompat$getAnchor();
+-        BlockPos local = pos.subtract(anchor);
+-        for (TrainPantographEntry existing : list.electroEnergetics$getPantographList()) {
+-            if (existing != null && existing.originalPos.equals(local)) return;
+-        }
+-
+-        Direction assembly = ((CarriageContraption) (Object) this).getAssemblyDirection();
+-        Direction facing = state.getValue(PantographBlock.FACING);
+-        Rotation rotation = assembly == Direction.NORTH ? Rotation.COUNTERCLOCKWISE_90
+-                : assembly == Direction.EAST ? Rotation.CLOCKWISE_180
+-                : assembly == Direction.SOUTH ? Rotation.CLOCKWISE_90 : Rotation.NONE;
+-        BlockPos rotated = local.rotate(rotation);
+-        boolean facingForward = facing == assembly;
+-        list.electroEnergetics$getPantographList().add(new TrainPantographEntry(
+-                local, rotated, CEEPantographTypes.STANDARD.get(), true, facingForward));
+-    }
+-}
+--- a/src/main/java/com/gokul/ohecompat/integration/PawPantographTrainBridge.java
++++ b/src/main/java/com/gokul/ohecompat/integration/PawPantographTrainBridge.java
+@@ -116,8 +116,8 @@
+                 bound++;
+ 
+                 if (level.getGameTime() % 40L == 0L) {
+-                    LOGGER.info("[OHE-PANTO-BRIDGE] train={} pickup={} edge={} pct={} distance={} node={} shadow=true",
+-                            train.id, entry.pos, candidate.edge().getId(),
++                    LOGGER.info("[OHE-PANTO-BRIDGE] train={} entryOriginal={} entryRotated={} type={} pickup={} edge={} pct={} distance={} node={} shadow=true",
++                            train.id, entry.originalPos, entry.rotatedPos, entry.type, entry.pos, candidate.edge().getId(),
+                             String.format(java.util.Locale.ROOT, "%.5f", candidate.percentage()),
+                             String.format(java.util.Locale.ROOT, "%.3f", candidate.distance()),
+                             entry.node);
+--- a/gradle.properties
++++ b/gradle.properties
+@@ -3,7 +3,7 @@
+ mod_id=ohecompat
+ mod_name=CEE + P&W OHE Compatibility
+-mod_version=0.2.0-alpha
++mod_version=0.2.1-alpha
+ mod_group=com.gokul.ohecompat
+ java_version=21
+ org.gradle.jvmargs=-Xmx4G
